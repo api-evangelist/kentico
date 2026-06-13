@@ -1,0 +1,75 @@
+{
+  "provider": "kentico",
+  "blog_url": "https://community.kentico.com/blog",
+  "fetched": "2026-06-13",
+  "posts": [
+    {
+      "title": "Xperience by Kentico Refresh - May 14, 2026",
+      "url": "https://community.kentico.com/blog/xperience-by-kentico-refresh-may-14-2026",
+      "date": "2026-05-25",
+      "description": "Features improvements to marketer workflows, AI-assisted content creation, and developer productivity with KentiCopilot."
+    },
+    {
+      "title": "Building a Loyalty Program Automation in Xperience by Kentico",
+      "url": "https://community.kentico.com/blog/building-a-loyalty-program-automation-in-xperience-by-kentico",
+      "date": "2026-05-12",
+      "author": "Sean Wright",
+      "description": "Demonstrates creating a loyalty program with custom activities, contact fields, and marketer-owned automations for tier-based rewards."
+    },
+    {
+      "title": "Building Xperience by Kentico Projects as a Team: Practices That Scale",
+      "url": "https://community.kentico.com/blog/building-xperience-by-kentico-projects-as-a-team-practices-that-scale",
+      "date": "2026-05-07",
+      "author": "Sean Wright",
+      "description": "Expert insights on team coordination, confident deployment, and managing monthly refreshes through CI/CD, environments, and communication strategies."
+    },
+    {
+      "title": "How to Automate Event Registration and Attendance Follow-Up in Xperience by Kentico",
+      "url": "https://community.kentico.com/blog/how-to-automate-event-registration-and-attendance-follow-up-in-xperience-by-kentico",
+      "date": "2026-05-04",
+      "author": "Sean Wright",
+      "description": "Complete walkthrough for building pre/post-event email sequences and tracking attendance using custom activities."
+    },
+    {
+      "title": "From SEO to GEO: Adapting Your Content Strategy for AI-Powered Search",
+      "url": "https://community.kentico.com/blog/seo-to-geo-adapting-content-strategy-for-ai-search",
+      "date": "2026-04-30",
+      "author": "Martina Škantárová",
+      "description": "Partner agencies share data-driven experiences adapting content strategies as search optimization evolves with AI."
+    },
+    {
+      "title": "Chaining Automations in Xperience by Kentico: A Multi-Part Content Drip",
+      "url": "https://community.kentico.com/blog/chaining-automations-in-xperience-by-kentico-a-multi-part-content-drip",
+      "date": "2026-04-28",
+      "author": "Sean Wright",
+      "description": "Demonstrates linking multiple automations into larger workflows with reusable widgets for marketer-controlled activity logging."
+    },
+    {
+      "title": "Xperience by Kentico Refresh - April 16, 2026",
+      "url": "https://community.kentico.com/blog/xperience-by-kentico-refresh-april-16-2026",
+      "date": "2026-04-22",
+      "description": "Updates include Campaign Manager, SEO & GEO Specialist, AIRA audience segmentation, and KentiCopilot migration tools."
+    },
+    {
+      "title": "Post-Purchase Email Automation in Xperience by Kentico: A Step-by-Step Guide",
+      "url": "https://community.kentico.com/blog/post-purchase-email-automation-in-xperience-by-kentico-a-step-by-step-guide",
+      "date": "2026-04-20",
+      "author": "Sean Wright",
+      "description": "Step-by-step instructions for building registration forms, custom contact fields, and engagement-gated email sequences."
+    },
+    {
+      "title": "From Built to Optimized: Getting More from Your First Xperience Automation",
+      "url": "https://community.kentico.com/blog/from-built-to-optimized-getting-more-from-your-first-xperience-automation",
+      "date": "2026-04-13",
+      "author": "Sean Wright",
+      "description": "Explains optimization strategies, leveraging AIRA for email crafting, and integrating automations with Customer Journeys."
+    },
+    {
+      "title": "Xperience Automations: You've Been Meaning to Explore Them. Here's What's Been Waiting",
+      "url": "https://community.kentico.com/blog/xperience-automations-you-ve-been-meaning-to-explore-them-here-s-what-s-been-waiting",
+      "date": "2026-04-08",
+      "author": "Sean Wright",
+      "description": "Presents five concrete scenarios demonstrating automation capabilities with real pages, emails, and contact data examples."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Kentico",
+  "url": "https://www.kentico.com",
+  "description": "Kentico is an enterprise .NET CMS and digital experience platform offering REST and GraphQL APIs for managing web content, e-commerce, digital marketing, and personalization.",
+  "sameAs": [
+    "https://github.com/Kentico",
+    "https://www.linkedin.com/company/kenticosoftware",
+    "https://x.com/kentico"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "url": "https://community.kentico.com",
+    "contactType": "customer support"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Kentico API Products",
+    "itemListElement": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Kentico Headless GraphQL API",
+        "description": "Auto-generated GraphQL API endpoint for each headless channel in Xperience by Kentico. Supports querying content items with filtering, sorting, pagination, linked items, language variants, taxonomy tags, assets, and rich text.",
+        "applicationCategory": "DeveloperApplication",
+        "url": "https://docs.kentico.com/documentation/developers-and-admins/development/content-retrieval/retrieve-headless-content",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://www.kentico.com/pricing"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Kentico Management REST API",
+        "description": "Built-in REST service for reading, creating, updating, and deleting pages and CMS objects within Xperience by Kentico.",
+        "applicationCategory": "DeveloperApplication",
+        "url": "https://docs.kentico.com/documentation/developers-and-admins/api",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://www.kentico.com/pricing"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Kentico .NET Content API",
+        "description": "Server-side .NET API for content item queries, object queries, file system operations, and database access within Xperience by Kentico applications.",
+        "applicationCategory": "DeveloperApplication",
+        "url": "https://api-reference.kentico.com/",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://www.kentico.com/pricing"
+        }
+      }
+    ]
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "url": "https://docs.kentico.com/documentation/developers-and-admins/api"
+  }
+}
