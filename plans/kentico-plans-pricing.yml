@@ -1,0 +1,96 @@
+name: Kentico Plans and Pricing
+description: >-
+  Xperience by Kentico uses a channel-based licensing model rather than
+  seat-based pricing. Licenses are issued per channel (web, email, or headless).
+  Two main license tiers are available — Standard and Advanced — plus SaaS
+  subscription options and AIRA AI credit packages. Specific pricing requires
+  contacting sales; starting prices from third-party sources indicate
+  approximately $11,880/year for entry-level annual subscriptions.
+url: https://www.kentico.com/pricing
+created: "2026-06-13"
+modified: "2026-06-13"
+
+plans:
+  - name: Standard
+    description: >-
+      Designed for single-channel, basic CMS projects. Supports essential
+      tools including Page Builder. Cannot add additional main channels.
+      Advanced digital marketing and AI capabilities not included.
+    channel_type: Single main channel
+    features:
+      - Page Builder
+      - Basic content management
+      - Website channel
+      - Email channel
+      - Headless channel
+    limitations:
+      - No additional main channels
+      - No advanced digital marketing features
+      - No AI capabilities (AIRA)
+    pricing_model: Annual subscription or perpetual license
+    pricing_contact_required: true
+
+  - name: Advanced
+    description: >-
+      Supports multi-channel strategies with unlimited main and micro channels.
+      Includes all features for engagement and marketing efficiency, advanced
+      digital marketing features, and AIRA AI capabilities.
+    channel_type: Multi-channel (unlimited main channels)
+    features:
+      - Page Builder
+      - Advanced content management
+      - Unlimited website channels
+      - Unlimited email channels
+      - Unlimited headless channels
+      - Micro channels (microsites and sub-brands)
+      - Advanced digital marketing
+      - AI capabilities (AIRA)
+      - Personalization
+    pricing_model: Annual subscription or perpetual license
+    pricing_contact_required: true
+
+  - name: SaaS Standard
+    description: >-
+      Fixed-cost SaaS subscription with pre-defined cloud hosting levels.
+      Customizable via Resource Upgrades for bandwidth, email sending, or
+      storage. Hosted on Kentico-managed cloud infrastructure.
+    channel_type: Per plan configuration
+    features:
+      - Managed cloud hosting
+      - Pre-defined resource levels
+      - Resource Upgrades available (bandwidth, email, storage)
+      - CI/CD ready
+      - Automated deployment support
+    pricing_model: Fixed monthly/annual SaaS subscription
+    pricing_contact_required: true
+
+  - name: SaaS Advanced
+    description: >-
+      Advanced SaaS option with full multi-channel support and all features
+      including AI and digital marketing. Custom cloud arrangements available
+      for enterprise needs.
+    channel_type: Multi-channel
+    features:
+      - Managed cloud hosting
+      - All Advanced tier features
+      - AI (AIRA) credits included
+      - Custom cloud arrangements
+      - KentiCopilot developer tools
+    pricing_model: Fixed monthly/annual SaaS subscription
+    pricing_contact_required: true
+
+  - name: AIRA AI Credits
+    description: >-
+      Flexible consumption-based AI credit package for AI-powered content
+      and marketing features. Pay only for what you use.
+    channel_type: Add-on
+    pricing_model: Consumption-based (pay-per-use)
+    pricing_contact_required: true
+
+notes:
+  - "Starting prices from market sources indicate approximately $11,880/year for entry-level plans"
+  - "Enterprise Kentico Xperience 13 Business plan listed at $12,500 full license; Enterprise at $22,300"
+  - "Total cost of ownership estimated $50,000-$300,000+ over three years depending on plan and complexity"
+  - "Free trial available"
+  - "KentiCopilot AI developer tools available at no additional cost to all developers"
+  - "On-premise, private cloud (Azure/AWS), and SaaS deployment options available"

@@ -1,0 +1,117 @@
+name: Kentico FinOps
+description: >-
+  Financial operations guidance for Xperience by Kentico deployments. The
+  platform uses channel-based licensing and either fixed SaaS subscriptions or
+  perpetual/annual on-premise licenses. Cost drivers include number of channels,
+  cloud resource consumption (SaaS), AIRA AI credit usage, and implementation
+  services. No metered API call pricing exists; costs are capacity-based.
+url: https://www.kentico.com/pricing
+created: "2026-06-13"
+modified: "2026-06-13"
+
+cost_model:
+  type: Channel-based licensing + optional consumption (AI credits)
+  billing_cycles:
+    - Annual subscription
+    - Perpetual license (one-time)
+    - Monthly SaaS subscription
+  api_call_pricing: false
+  seat_based_pricing: false
+  channel_based_pricing: true
+
+cost_drivers:
+  - name: Channel Count
+    description: >-
+      Primary cost driver. Each main channel (website, email, headless) and
+      micro channel (microsite, sub-brand) contributes to licensing costs.
+      Standard tier limits to one main channel; Advanced tier supports
+      unlimited main and micro channels.
+    impact: High
+
+  - name: License Tier
+    description: >-
+      Standard vs Advanced tier choice significantly affects cost. Advanced
+      includes digital marketing, personalization, and AI capabilities not
+      available in Standard.
+    impact: High
+
+  - name: Deployment Model
+    description: >-
+      SaaS (Kentico-managed cloud), private cloud (Azure/AWS managed by
+      customer), or on-premise. SaaS includes infrastructure costs in
+      subscription. Private cloud and on-premise incur separate hosting costs.
+    impact: High
+
+  - name: SaaS Cloud Resource Level
+    description: >-
+      SaaS plans have pre-defined resource levels. Resource Upgrades allow
+      adding bandwidth, email sending volume, or storage beyond the base
+      allocation at additional cost.
+    impact: Medium
+
+  - name: AIRA AI Credits
+    description: >-
+      Consumption-based AI credit packages for AI-powered content generation,
+      marketing optimization, and personalization. Pay only for what you use.
+      Available as flexible add-on packages.
+    impact: Medium
+
+  - name: Implementation and Professional Services
+    description: >-
+      Enterprise implementations typically require professional services for
+      setup, customization, and integration. Can significantly increase TCO.
+    impact: High
+
+cost_optimization:
+  - strategy: Right-size channel count
+    description: >-
+      Audit active channels and remove unused headless, email, or website
+      channels to avoid paying for unused capacity. Use micro channels for
+      low-traffic microsites instead of full main channels.
+
+  - strategy: Choose appropriate deployment model
+    description: >-
+      SaaS removes infrastructure management overhead but may cost more than
+      self-managed cloud at scale. Evaluate total infrastructure cost including
+      DevOps effort for private cloud deployments.
+
+  - strategy: Monitor AIRA AI credit consumption
+    description: >-
+      Track AI credit usage patterns and optimize content generation workflows
+      to avoid overconsumption. Set usage budgets per team or project.
+
+  - strategy: Leverage KentiCopilot at no extra cost
+    description: >-
+      KentiCopilot developer tools (AI-powered scaffolding, code generation,
+      MCP servers) are available to all developers at no additional cost.
+      Maximize use before purchasing external developer tooling.
+
+  - strategy: Use SaaS Resource Upgrades instead of tier upgrade
+    description: >-
+      When approaching resource limits on SaaS, evaluate whether targeted
+      Resource Upgrades (bandwidth, email, storage) are more cost-effective
+      than upgrading to a higher cloud level.
+
+  - strategy: Annual vs monthly billing
+    description: >-
+      Annual subscriptions typically yield 15-40% savings over monthly billing.
+      Commit to annual terms when project timeline is confirmed.
+
+tco_estimates:
+  description: >-
+    Total cost of ownership estimates from market research (third-party sources).
+    Actual costs vary significantly based on plan selection, project complexity,
+    and required professional services.
+  three_year_range:
+    low: "$50,000"
+    high: "$300,000+"
+  entry_annual_subscription: "$11,880"
+  legacy_business_license: "$12,500 (one-time, Xperience 13)"
+  legacy_enterprise_license: "$22,300 (one-time, Xperience 13)"
+
+budgeting_notes:
+  - "Contact Kentico sales for current pricing; no public price list for SaaS tiers"
+  - "Free trial available for evaluation before purchase commitment"
+  - "Factor in implementation partner costs for enterprise deployments"
+  - "Plan for ongoing monthly feature releases (evergreen model) — no replatforming costs"
+  - "Azure or AWS hosting costs apply separately for private cloud deployments"

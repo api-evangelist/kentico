@@ -1,0 +1,67 @@
+name: Kentico Rate Limits
+description: >-
+  Xperience by Kentico does not enforce a global rate limiter or preset API
+  quotas by default. A rate limiter is applied out-of-the-box only to
+  administration user management endpoints (sign-in, password reset). All
+  other rate limiting must be implemented by developers using ASP.NET Core
+  Rate Limiting middleware configured within the application pipeline.
+url: https://docs.kentico.com/documentation/developers-and-admins/security-guidelines/rate-limiting
+created: "2026-06-13"
+modified: "2026-06-13"
+
+default_limits:
+  global_rate_limiter: false
+  description: >-
+    No global rate limiter applies. Developers must implement rate limiting
+    manually for endpoints beyond the built-in administration user management
+    protection.
+
+built_in_limits:
+  - endpoint_pattern: Administration user management
+    description: >-
+      Sign-in pages, password reset pages, and similar user management
+      administration endpoints are rate limited by default.
+    type: Built-in partitioned rate limiter
+    scope: Administration UI only
+
+recommended_limits:
+  - endpoint_pattern: /account (member registration and authentication)
+    token_limit: 100
+    token_replenishment: 10 tokens per 6 seconds
+    description: >-
+      Recommended configuration for custom member registration and
+      authentication endpoints to prevent brute-force attacks.
+
+  - endpoint_pattern: /graphql (headless channel GraphQL API)
+    token_limit: 1000
+    token_replenishment: 50 tokens per 6 seconds
+    description: >-
+      Recommended configuration for GraphQL API endpoints serving
+      headless channel content queries.
+
+implementation:
+  middleware: ASP.NET Core Rate Limiting middleware
+  strategy: Partitioned rate limiter (condition-based, tied to URL paths)
+  pipeline_order: >-
+    UseRateLimiter() must be called before UseKentico() in the middleware
+    pipeline for proper application.
+  default_partition: >-
+    RateLimitPartition.GetNoLimiter("") returned for unmatched paths unless
+    full-application limiting is desired.
+
+endpoints_requiring_manual_limiting:
+  - Custom member registration and authentication endpoints
+  - Email subscription endpoints
+  - Content asset retrieval endpoints
+  - GraphQL API endpoints for headless channels
+  - Custom live site endpoints
+
+warnings:
+  - >-
+    If an endpoint has multiple rate limiting policies, the more restrictive
+    policy is applied. Overlapping path-based rules (e.g., /admin covering
+    all admin functions) may conflict with the built-in user management
+    rate limiting.
+  - >-
+    Developers are responsible for implementing appropriate rate limiting
+    for all custom and public-facing endpoints to protect against abuse.
