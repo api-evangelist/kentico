@@ -1,0 +1,174 @@
+# Kentico Xperience by Kentico — Headless GraphQL API Schema
+#
+# The schema is auto-generated per headless channel from content type
+# definitions registered in that channel. Types named after content types
+# (e.g. Article, BlogPost) are project-specific and not listed here.
+# This file documents the platform-level built-in system types, scalars,
+# enums, and query patterns that are always present.
+#
+# Endpoint: https://<domain>/graphql/<headless-channel-guid>
+# Docs: https://docs.kentico.com/documentation/developers-and-admins/development/content-retrieval/retrieve-headless-content
+
+scalar DateTime
+scalar UUID
+
+# ─── Enumerations ────────────────────────────────────────────────────────────
+
+"""Sort direction used by all auto-generated Sorter types."""
+enum _Sorter {
+  ASC
+  DESC
+}
+
+# ─── System types ─────────────────────────────────────────────────────────────
+
+"""
+Metadata fields present on every content item returned by the API.
+Exposed as a nested `system` field on each content-type object.
+"""
+type _System {
+  """The content item GUID."""
+  id: UUID!
+  """The code name of the content type (e.g. 'Article')."""
+  contentType: String!
+}
+
+"""
+Represents the canonical URL of a page linked from a website channel.
+Returned on fields that reference website channel pages.
+"""
+type _WebPage {
+  """Absolute canonical URL using the main domain of the website channel."""
+  url: String!
+}
+
+"""
+A file asset stored inside a reusable content item field
+(Content item asset field type).
+"""
+type _ContentItemAsset {
+  """Relative URL path to the asset file."""
+  path: String!
+  """Width in pixels — null for non-image assets."""
+  width: Int
+  """Height in pixels — null for non-image assets."""
+  height: Int
+}
+
+"""
+A media library file referenced via a Media files field type.
+Returned as an array  [_Asset!].
+"""
+type _Asset {
+  """Relative URL path to the media library file."""
+  path: String!
+  """Width in pixels — null for non-image files."""
+  width: Int
+  """Height in pixels — null for non-image files."""
+  height: Int
+}
+
+"""A taxonomy tag returned on Taxonomy field types."""
+type _Tag {
+  """Code name of the taxonomy tag."""
+  name: String!
+  """Display title of the tag."""
+  title: String!
+  """Optional description of the tag."""
+  description: String
+}
+
+# ─── Filter input types ────────────────────────────────────────────────────────
+# The platform auto-generates a *Filter type for every field of every content
+# type. The inputs below represent the platform-level scalar filter shapes.
+
+"""Filter operations available on text/string fields."""
+input _TextFilter {
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+"""Filter operations available on integer fields."""
+input _IntFilter {
+  eq: Int
+  neq: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+}
+
+"""Filter operations available on DateTime fields."""
+input _DateTimeFilter {
+  eq: DateTime
+  neq: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+}
+
+"""Filter operations available on boolean fields."""
+input _BoolFilter {
+  eq: Boolean
+}
+
+"""Filter operations available on UUID/GUID fields."""
+input _UUIDFilter {
+  eq: UUID
+  neq: UUID
+}
+
+"""Filter operations available on taxonomy (_Tag array) fields."""
+input _TagFilter {
+  containsAny: [String!]
+  containsAll: [String!]
+}
+
+# ─── Collection wrapper type (pattern) ────────────────────────────────────────
+# For each content type <Foo>, the schema generates a _FooCollection type.
+# The shape is always:
+
+# type _<ContentTypeShortCodeName>Collection {
+#   items: [<ContentTypeShortCodeName>!]!
+#   totalCount: Int!
+# }
+
+# ─── Query type (pattern) ─────────────────────────────────────────────────────
+# For each content type registered in the headless channel the schema exposes:
+#
+# type Query {
+#   <contentTypeShortCodeName>(
+#     id: UUID
+#     languageName: String
+#     useLanguageFallbacks: Boolean
+#   ): <ContentTypeShortCodeName>
+#
+#   <contentTypeShortCodeName>Collection(
+#     languageName: String
+#     useLanguageFallbacks: Boolean
+#     where: <ContentTypeShortCodeName>Filter
+#     sort: [<ContentTypeShortCodeName>Sorter!]
+#     skip: Int
+#     take: Int                    # max 100
+#   ): _<ContentTypeShortCodeName>Collection
+# }
+
+"""
+Placeholder root query — actual fields are channel- and project-specific.
+Use the /graphql/ui Nitro IDE on your Xperience instance to introspect
+the live schema for a given headless channel.
+"""
+type Query {
+  """
+  Introspection placeholder. Replace with your channel-specific content type
+  queries discovered via /graphql/ui or schema introspection.
+  """
+  _placeholder: String
+}
