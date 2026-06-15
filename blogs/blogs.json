@@ -1,7 +1,7 @@
 {
   "provider": "kentico",
   "blog_url": "https://community.kentico.com/blog",
-  "fetched": "2026-06-13",
+  "fetched": "2026-06-14T20:42:17Z",
   "posts": [
     {
       "title": "Xperience by Kentico Refresh - May 14, 2026",
@@ -34,7 +34,7 @@
       "title": "From SEO to GEO: Adapting Your Content Strategy for AI-Powered Search",
       "url": "https://community.kentico.com/blog/seo-to-geo-adapting-content-strategy-for-ai-search",
       "date": "2026-04-30",
-      "author": "Martina Škantárová",
+      "author": "Martina \u0160kant\u00e1rov\u00e1",
       "description": "Partner agencies share data-driven experiences adapting content strategies as search optimization evolves with AI."
     },
     {
@@ -71,5 +71,13 @@
       "author": "Sean Wright",
       "description": "Presents five concrete scenarios demonstrating automation capabilities with real pages, emails, and contact data examples."
     }
-  ]
+  ],
+  "repo": "kentico",
+  "feeds": [
+    {
+      "source": "https://www.linkedin.com/company/kenticosoftware",
+      "error": "HTTPError"
+    }
+  ],
+  "post_count": 0
 }
