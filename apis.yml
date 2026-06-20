@@ -8,7 +8,7 @@ description: Kentico is an enterprise .NET CMS and digital experience platform o
   objects. The platform supports ASP.NET Core with channel-based licensing covering
   website, email, and headless channels.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/kentico/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -32,7 +32,7 @@ apis:
     linked items, language variants, taxonomy tags, assets, and rich text. Authentication
     uses Bearer API key tokens. Interactive schema exploration available via the /graphql/ui
     IDE.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.kentico.com/documentation/developers-and-admins/development/content-retrieval/retrieve-headless-content
   baseURL: https://example.com/graphql
   tags:
@@ -56,7 +56,7 @@ apis:
     pages and CMS objects within Xperience by Kentico. Requests use HTTP Basic authentication
     with Base64-encoded credentials or hash parameter authentication for public endpoints.
     Returns data in XML, JSON, RSS, or Atom format.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.kentico.com/documentation/developers-and-admins/api
   baseURL: https://example.com/rest
   tags:
@@ -78,7 +78,7 @@ apis:
     system operations, and database access within Xperience by Kentico applications.
     Includes ContentRetriever API, ObjectQuery API, Files API with CMS.IO supporting
     Azure Blob storage and Amazon S3, and code generation tools for system objects.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.kentico.com/documentation/developers-and-admins/api
   baseURL: https://api-reference.kentico.com
   tags:
