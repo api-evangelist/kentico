@@ -96,6 +96,12 @@ apis:
   - FN: Kentico Support
     url: https://community.kentico.com
 common:
+- type: TrustCenter
+  url: security/kentico-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/kentico-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/kentico-domain-security.yml
 - type: Website
   url: https://www.kentico.com
 - type: Documentation
