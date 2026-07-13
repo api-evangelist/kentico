@@ -2,13 +2,11 @@
   "repo": "kentico",
   "feeds": [
     {
-      "source": "https://community.kentico.com/blog",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/kenticosoftware",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T12:49:12Z",
-  "post_count": 2,
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 4,
   "agent_pulled": "2026-06-27"
 }
