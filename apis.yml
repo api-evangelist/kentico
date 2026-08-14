@@ -23,7 +23,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kentico.png
 url: https://raw.githubusercontent.com/api-evangelist/kentico/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 tags:
 - CMS
@@ -46,7 +46,7 @@ apis:
     IDE.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.kentico.com/documentation/developers-and-admins/development/content-retrieval/retrieve-headless-content
-  baseURL: https://example.com/graphql
+  baseURL: https://{project-domain}/graphql/{headless-channel-guid}
   tags:
   - GraphQL
   - Headless
@@ -70,7 +70,7 @@ apis:
     Returns data in XML, JSON, RSS, or Atom format.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.kentico.com/documentation/developers-and-admins/api
-  baseURL: https://example.com/rest
+  baseURL: https://{project-domain}/rest
   tags:
   - REST
   - CMS
@@ -107,6 +107,65 @@ apis:
   contact:
   - FN: Kentico Support
     url: https://community.kentico.com
+- aid: kentico:kentico-xperience-portal-api
+  name: Xperience Portal API
+  description: HTTP API for the Kentico SaaS control plane. Uploads a deployment ZIP
+    package to an Xperience Portal project environment so CI/CD pipelines can deploy
+    without using the Portal UI. Authenticated with a Personal Access Token sent as
+    a Bearer token; the project is addressed by its PROJECT_GUID in the path and the
+    target environment (qa, staging, prod) as the final path segment. Packages are
+    limited to 2 GB and deployments are queued one at a time per project. This is
+    the only Kentico API served from a host Kentico itself operates.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
+  baseURL: https://xperience-portal.com/api
+  tags:
+  - Deployment
+  - CI/CD
+  - SaaS
+  - DevOps
+  - REST
+  properties:
+  - type: Documentation
+    url: https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
+  - type: Authentication
+    url: authentication/kentico-authentication.yml
+  - type: GettingStarted
+    url: https://docs.kentico.com/guides/configuration/saas/saas-walkthrough/saas-update-with-xperience-portal-api
+  contact:
+  - FN: Kentico Support
+    url: https://community.kentico.com
+- aid: kentico:kentico-management-api
+  name: Xperience by Kentico Management API
+  description: Preview REST management API exposed by an Xperience by Kentico application
+    at the kentico-api/management path once the Kentico.Xperience.ManagementApi package
+    is installed and AddKenticoManagementApi() is called. Provides CRUD over content
+    types, reusable field schemas, content items, pages, folders, assets, channels,
+    workspaces, languages, taxonomies, tags and Page Builder components. Authenticated
+    with a shared secret of at least 32 characters. Kentico documents it as local-development
+    only - it has basic authentication and no per-operation authorization. It is the
+    API the Management MCP server introspects and republishes as agent tools.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.kentico.com/documentation/developers-and-admins/api/management-api
+  baseURL: https://{project-domain}/kentico-api/management
+  tags:
+  - Management
+  - Content Management
+  - CMS
+  - MCP
+  - Preview
+  properties:
+  - type: Documentation
+    url: https://docs.kentico.com/documentation/developers-and-admins/api/management-api
+  - type: MCPServer
+    url: mcp/kentico-mcp.yml
+  - type: Authentication
+    url: authentication/kentico-authentication.yml
+  - type: DataModel
+    url: data-model/kentico-data-model.yml
+  contact:
+  - FN: Kentico Support
+    url: https://community.kentico.com
 common:
 - type: TrustCenter
   url: security/kentico-trust-center.yml
@@ -136,6 +195,71 @@ common:
   url: rate-limits/kentico-rate-limits.yml
 - type: FinOps
   url: finops/kentico-finops.yml
+- type: MCPServer
+  url: mcp/kentico-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/kentico-llms.txt
+- type: Packages
+  url: packages/kentico-packages.yml
+- type: SDKs
+  url: packages/kentico-packages.yml
+- type: CLI
+  url: cli/kentico-cli.yml
+- type: Components
+  url: components/kentico-components.yml
+- type: WellKnown
+  url: well-known/kentico-well-known.yml
+- type: SecurityTxt
+  url: well-known/kentico-security.txt
+- type: Security
+  url: https://www.kentico.com/vulnerability-disclosure-program
+- type: Authentication
+  url: authentication/kentico-authentication.yml
+- type: Conventions
+  url: conventions/kentico-conventions.yml
+- type: ErrorCatalog
+  url: errors/kentico-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/kentico-lifecycle.yml
+- type: Deprecation
+  url: https://docs.kentico.com/documentation/developers-and-admins/installation/support-policy
+- type: ChangeLog
+  url: changelog/kentico-changelog.yml
+- type: Conformance
+  url: conformance/kentico-conformance.yml
+- type: Compliance
+  url: https://trust.kentico.com/
+- type: DataModel
+  url: data-model/kentico-data-model.yml
+- type: Sandbox
+  url: sandbox/kentico-sandbox.yml
+- type: DeveloperPortal
+  url: https://docs.kentico.com/
+- type: APIReference
+  url: https://api-reference.kentico.com/
+- type: GettingStarted
+  url: https://www.kentico.com/get-started
+- type: Support
+  url: https://www.kentico.com/customers/supportcenter
+- type: Community
+  url: https://community.kentico.com
+- type: Roadmap
+  url: https://roadmap.kentico.com/
+- type: GitHubOrganization
+  url: https://github.com/Kentico
+- type: TermsOfService
+  url: https://www.kentico.com/end-user-license-agreement
+- type: PrivacyPolicy
+  url: https://www.kentico.com/privacy-policy
+- type: YouTube
+  url: https://www.youtube.com/c/kentico
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 42
+  pass: local-v1
