@@ -1,3 +1,13 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.kentico.com/pricing
+plan_count: 5
+public_prices: false
+pricing_note: >-
+  Kentico publishes named license tiers but no public list price — every tier
+  requires contacting sales. The dollar figures under `notes` come from
+  third-party market sources, not from kentico.com, and must not be read as
+  published Kentico pricing.
 name: Kentico Plans and Pricing
 description: >-
   Xperience by Kentico uses a channel-based licensing model rather than

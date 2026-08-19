@@ -1,0 +1,126 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  live probes 2026-08-13 (docs.kentico.com/mcp, www.kentico.com/.well-known/security.txt,
+  www.kentico.com/llms.txt) + https://trust.kentico.com/
+note: >-
+  Cross-cutting standards conformance for Kentico. Every `conforms: true` below
+  is backed by something fetched or read from Kentico's own documentation, not
+  inferred from product category. The absences are as informative as the hits:
+  Kentico is a strong MCP/agent-standards adopter and a non-adopter of the REST
+  contract standards (no OpenAPI, no OAuth, no RFC 9457).
+
+standards:
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    version: '2025-06-18'
+    evidence: >-
+      Live initialize against https://docs.kentico.com/mcp on 2026-08-13
+      returned protocolVersion 2025-06-18 and serverInfo
+      Kentico.Aira.Service 1.0.0.0; tools/list returned 2 tools with
+      inputSchema. A second first-party MCP server ships as the npm package
+      @kentico/management-api-mcp (stdio).
+    artifact: mcp/kentico-mcp.yml
+
+  - id: agent-skills
+    name: Agent Skills (SKILL.md)
+    conforms: true
+    evidence: >-
+      Kentico publishes 25 SKILL.md agent skills across four plugins in the
+      KentiCopilot marketplace (github.com/Kentico/xperience-by-kentico-kenticopilot,
+      marketplace version 2.0.2, MIT), each with name/description frontmatter.
+    artifact: skills/_index.yml
+
+  - id: graphql
+    name: GraphQL
+    conforms: true
+    evidence: >-
+      Every headless channel exposes an auto-generated GraphQL endpoint with
+      collection types, where/orderBy arguments, Unions for multi-type fields,
+      and an interactive IDE at /graphql/ui.
+    artifact: graphql/kentico-schema.graphql
+
+  - id: llmstxt
+    name: llms.txt
+    conforms: true
+    evidence: >-
+      https://www.kentico.com/llms.txt returns 200 text/plain with an H1,
+      blockquote summary, link sections and an explicit AI usage policy
+      (training not allowed, summarization and citation allowed).
+    artifact: llms/kentico-llms.txt
+
+  - id: rfc9116
+    name: security.txt
+    conforms: true
+    partial: true
+    evidence: >-
+      https://www.kentico.com/.well-known/security.txt returns 200 with
+      `Contact: mailto:security@kentico.com`. It carries only the Contact
+      field — no Expires (which RFC 9116 requires), no Policy, no Encryption.
+    artifact: well-known/kentico-well-known.yml
+
+  - id: openapi
+    name: OpenAPI
+    conforms: false
+    evidence: >-
+      No OpenAPI or Swagger document is published on any Kentico-operated host.
+      Probed /openapi.json, /swagger.json, /swagger/v1/swagger.json, /api-docs
+      on docs.kentico.com and xperience-portal.com — all 404. The management API
+      does register Swagger generation via AddKenticoManagementApi(), but that
+      document is served by the CUSTOMER's own running application, not by
+      Kentico.
+
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: false
+    evidence: >-
+      No OAuth surface on any API. Auth is API key (headless GraphQL), Bearer
+      personal access token (Xperience Portal API), shared secret (management
+      API) and HTTP Basic (legacy REST service).
+
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on www.kentico.com and xperience-portal.com.
+
+  - id: rfc9457
+    name: Problem Details for HTTP APIs
+    conforms: false
+    evidence: No application/problem+json contract is documented on any surface.
+
+  - id: rfc8594
+    name: Sunset / Deprecation HTTP headers
+    conforms: false
+    evidence: >-
+      Deprecation is signalled with .NET [Obsolete] attributes and changelog
+      "Newly obsolete API" sections, not over the wire. The written policy
+      (12-month backward compatibility) is nonetheless strong — see
+      lifecycle/kentico-lifecycle.yml.
+
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    applicable: false
+    evidence: >-
+      Kentico publishes no outbound webhook catalog or event stream of its own.
+      Xperience CONSUMES webhooks (custom automation triggers can be fired from
+      an endpoint that receives an external webhook) and integrates with Zapier,
+      but there is no provider-published event surface to describe. Not a gap.
+
+  - id: a2a
+    name: A2A Agent Card
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json return 404 on
+      www.kentico.com, docs.kentico.com, api-reference.kentico.com,
+      xperience-portal.com and community.kentico.com.
+
+compliance:
+  published: true
+  trust_center: https://trust.kentico.com/
+  certifications:
+    - SOC 2
+    - ISO/IEC 27001
+    - GDPR
+  detail: security/kentico-trust-center.yml

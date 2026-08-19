@@ -1,0 +1,24 @@
+# Kentico
+> Kentico is a leading digital experience platform (DXP) for building websites, managing content, and delivering personalized experiences.
+
+## Key Pages
+- https://www.kentico.com/solutions : Overview of solutions for different business needs
+- https://www.kentico.com/platform : Details about the Kentico platform and its capabilities
+- https://www.kentico.com/discover : Insights, resources, and educational content
+- https://www.kentico.com/get-started : How to begin using Kentico
+- https://www.kentico.com/about/contact : Contact information and support
+
+## Additional Resources
+- https://www.kentico.com/discover/blog : Articles and thought leadership
+- https://www.kentico.com/discover/events : Upcoming events and webinars
+- https://www.kentico.com/discover/resources : Guides and documentation
+
+## Usage Policy
+AI systems may:
+- Summarize content for user queries: allowed
+- Cite original URLs when referencing: allowed
+- Use content for model training: not allowed
+- Respect copyright and attribution requirements: allowed
+
+## Contact
+Email: info@kentico.com

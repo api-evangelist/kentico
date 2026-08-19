@@ -1,0 +1,139 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.kentico.com/documentation/developers-and-admins/development/content-retrieval/retrieve-headless-content
+note: >-
+  Cross-cutting request/response semantics for Kentico's callable surfaces. The
+  primary read API is the auto-generated per-channel headless GraphQL endpoint,
+  so most conventions here are GraphQL conventions rather than REST ones.
+
+authentication:
+  style: API key in the Authorization header (headless GraphQL); Bearer PAT (Xperience Portal API)
+  detail: authentication/kentico-authentication.yml
+
+idempotency:
+  supported: false
+  note: >-
+    Kentico documents no idempotency key, no request-deduplication header and no
+    safe-retry contract on any of its API surfaces. The headless GraphQL API is
+    read-only, which sidesteps the question; the Management API is a
+    local-development CRUD surface with no retry semantics documented, and the
+    Xperience Portal deployment upload is a queued single-process operation
+    ("SaaS processes are queued, and you can have only one process running at a
+    time") rather than an idempotent one. No Idempotency pointer is emitted.
+
+pagination:
+  style: offset
+  surface: headless GraphQL collection fields (*Collection)
+  params:
+    - name: skip
+      description: Number of items to skip.
+    - name: take
+      description: Number of items to return. Maximum value is 100.
+  response_fields:
+    - name: items
+      description: The page of results.
+    - name: totalCount
+      description: >-
+        Total number of retrieved items regardless of the pagination applied by
+        skip and/or take.
+  combinable_with: [filtering, sorting]
+  example: "{ acmeProductCollection(skip: 0, take: 10) { items { name price } totalCount } }"
+
+filtering:
+  argument: where
+  operators: [contains, gt, gte, lt, lte, eq]
+  taxonomy_operators:
+    - name: containsAny
+      description: Items containing any of the specified tags, or child tags of any of them.
+    - name: containsAll
+      description: Items containing all of the specified tags, or child tags of all of them.
+  nested: >-
+    where can be applied to linked-item collections as well as top-level
+    collections.
+
+sorting:
+  argument: orderBy
+  mechanism: >-
+    The schema auto-generates input types with a `Sorter` suffix for every
+    included content type. Sort direction uses the `_Sorter` enum (ASC | DESC).
+
+field_expansion:
+  mechanism: GraphQL selection sets; linked content items are traversed as nested fields.
+  depth_limit:
+    default: 5
+    configurable_via: MaxFieldCycleDepth
+    note: >-
+      GraphQL enforces a maximum depth when querying recursively linked content.
+  unions: >-
+    Fields that allow multiple content types return a GraphQL Union, queried
+    with inline fragments.
+
+metadata:
+  system_field: _System
+  fields:
+    - id (content item GUID)
+    - contentType (code name of the content type)
+  web_page_type: _WebPage — canonical URL of a page linked from a website channel
+  tag_type: _Tag — name, title, description
+
+request_tracing:
+  request_id_header: null
+  note: No request-id / correlation header is documented for any Kentico API surface.
+
+versioning:
+  style: product version (NuGet package version), not URL or header
+  detail: lifecycle/kentico-lifecycle.yml
+
+error_envelope:
+  graphql:
+    shape: standard GraphQL errors[] array in the JSON response body
+    note: >-
+      Kentico does not publish a GraphQL error-code registry. Requests with a
+      missing, disabled or deleted API key fail with an authorization error.
+  http_status_codes_documented:
+    context: >-
+      The only place Kentico enumerates HTTP status codes is the SaaS deployment
+      warm-up check, which lists the codes a deployed application may return
+      without failing the deployment swap.
+    allowed: [200, 201, 202, 203, 204, 301, 302, 303, 304, 307, 308, 401, 403]
+    note: >-
+      An application returning any other status (e.g. 429 or 503) during warm-up
+      causes the swap — and the whole deployment — to fail.
+    source: https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
+  detail: errors/kentico-problem-types.yml
+  rfc9457: false
+
+rate_limit_signaling:
+  supported: false
+  note: >-
+    No global rate limiter and no RateLimit-*/Retry-After response headers.
+    Rate limiting is the developer's job, implemented with ASP.NET Core rate
+    limiting middleware in their own application.
+  detail: rate-limits/kentico-rate-limits.yml
+
+cors:
+  configurable: true
+  setting: Settings → Content → Headless → Allowed origins
+  overrides: CMSHeadless.CorsAllowedOrigins (appsettings.json) / HeadlessOptions.CorsAllowedOrigins (Program.cs)
+  note: The administration setting takes priority over the configuration-file values.
+
+content_transport:
+  request: 'POST with Content-Type application/json and a JSON body {"query": ...}'
+  asset_urls: >-
+    Assets linked in rich-text fields are returned as absolute URLs on the
+    domain the headless endpoint was accessed through. URLs for content item
+    assets in their LATEST version are valid for only 10 minutes.
+  time_zone: >-
+    DateTime field values are always returned in the time zone of the server.
+
+interactive_console:
+  path: /graphql/ui
+  tool: Banana Cake Pop / Nitro IDE
+  note: Served by the customer's own Xperience application, not by Kentico.
+
+cross_links:
+  authentication: authentication/kentico-authentication.yml
+  errors: errors/kentico-problem-types.yml
+  lifecycle: lifecycle/kentico-lifecycle.yml
+  rate_limits: rate-limits/kentico-rate-limits.yml
+  graphql: graphql/kentico-schema.graphql

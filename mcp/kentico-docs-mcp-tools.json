@@ -1,0 +1,47 @@
+{
+    "result": {
+        "tools": [
+            {
+                "name": "kentico_docs_fetch",
+                "description": "Fetches and converts Xperience by Kentico (XbK) documentation page from https://docs.kentico.com into markdown format. Only URLs from docs.kentico.com are supported.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "url": {
+                            "description": "The URL of the HTML page to download.",
+                            "type": "string",
+                            "format": "uri"
+                        }
+                    },
+                    "required": [
+                        "url"
+                    ]
+                },
+                "execution": {
+                    "taskSupport": "optional"
+                }
+            },
+            {
+                "name": "kentico_docs_search",
+                "description": "Performs hybrid search (vector search, semantic search and text based search) against Xperience by Kentico (XbK) official documentation.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "query": {
+                            "description": "The query into documentation.",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "query"
+                    ]
+                },
+                "execution": {
+                    "taskSupport": "optional"
+                }
+            }
+        ]
+    },
+    "id": 2,
+    "jsonrpc": "2.0"
+}

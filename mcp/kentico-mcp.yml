@@ -1,0 +1,228 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: >-
+  https://docs.kentico.com/documentation/developers-and-admins/api/management-api
+  + https://github.com/Kentico/xperience-by-kentico-kenticopilot/blob/main/plugins/kentico-digital-experience/MCP-setup.md
+note: >-
+  Kentico ships TWO first-party MCP servers, and they are different products.
+  (1) The Kentico Docs MCP server is REMOTE and anonymous — an agent can POST to
+  https://docs.kentico.com/mcp right now with no credential. Verified by live
+  probe on 2026-08-13: initialize returned serverInfo
+  {"name":"Kentico.Aira.Service","version":"1.0.0.0"} with protocolVersion
+  2025-06-18, and tools/list returned two real tools with inputSchema (saved
+  verbatim to kentico-docs-mcp-tools.json). (2) The Management MCP server is
+  LOCAL STDIO — an npm package a developer runs against their OWN running
+  Xperience application; it reads the management API schema from that app at
+  startup and exposes its CRUD operations as tools. There is no hosted
+  Management MCP endpoint and Kentico explicitly says the management API is for
+  local development only.
+
+deployment:
+  mode: both
+  endpoint: https://docs.kentico.com/mcp
+  install: npx -y @kentico/management-api-mcp@latest
+  package: https://www.npmjs.com/package/@kentico/management-api-mcp
+  auth: none
+  verified: probed
+  note: >-
+    `endpoint` is the remote Docs MCP server (auth: none, probed anonymously).
+    `install`/`package` are the local-stdio Management MCP server, which is
+    NOT reachable at any Kentico-operated URL — it requires the developer's own
+    Xperience application plus a MANAGEMENT_API_SECRET, so its auth is
+    api-key-equivalent (shared secret) and self-hosted.
+
+servers:
+  - name: kentico-docs-mcp
+    title: Kentico Docs MCP server
+    mode: remote
+    transport: http
+    url: https://docs.kentico.com/mcp
+    auth: none
+    status: published
+    verified: probed
+    probed: '2026-08-13'
+    protocol_version: '2025-06-18'
+    server_info:
+      name: Kentico.Aira.Service
+      version: 1.0.0.0
+    capabilities:
+      tools: true
+      prompts: true
+      resources: true
+      logging: true
+    listed:
+      tools: 2
+      prompts: 0
+      resources: 0
+    tools_file: kentico-docs-mcp-tools.json
+    docs: https://github.com/Kentico/xperience-by-kentico-kenticopilot/blob/main/plugins/kentico-digital-experience/MCP-setup.md
+    config: |
+      {
+        "mcpServers": {
+          "kentico.docs.mcp": {
+            "type": "http",
+            "url": "https://docs.kentico.com/mcp"
+          }
+        }
+      }
+    tools:
+      - name: kentico_docs_search
+        description: >-
+          Performs hybrid search (vector search, semantic search and text based
+          search) against Xperience by Kentico (XbK) official documentation.
+        input_schema: {query: string (required)}
+      - name: kentico_docs_fetch
+        description: >-
+          Fetches and converts Xperience by Kentico (XbK) documentation page
+          from https://docs.kentico.com into markdown format. Only URLs from
+          docs.kentico.com are supported.
+        input_schema: {url: string/uri (required)}
+
+  - name: xperience-management-mcp
+    title: Xperience by Kentico Management MCP server
+    mode: local-stdio
+    transport: stdio
+    package: "@kentico/management-api-mcp"
+    package_url: https://www.npmjs.com/package/@kentico/management-api-mcp
+    package_version: 31.7.3-preview
+    package_published: '2026-08-13'
+    bin: xperience-mcp
+    install: npx -y @kentico/management-api-mcp@latest
+    engines: node >= 22.0.0
+    auth: api-key
+    auth_detail: >-
+      MANAGEMENT_API_SECRET environment variable — a shared secret (>= 32 chars)
+      set on the Xperience application via AddKenticoManagementApi(). Sent to
+      MANAGEMENT_API_URL, which points at the developer's own running app
+      (default form http://localhost:5001/kentico-api/management).
+    status: preview
+    verified: searched
+    lifecycle: >-
+      Kentico labels both the management API and the Management MCP server as a
+      PREVIEW feature and warns that breaking changes should be expected.
+    formerly: Content types MCP server
+    docs: https://docs.kentico.com/documentation/developers-and-admins/api/management-api/configure-management-mcp-server
+    capabilities_reference: https://docs.kentico.com/documentation/developers-and-admins/api/management-api/reference-management-mcp-capabilities
+    requires_package: Kentico.Xperience.ManagementApi (NuGet, prerelease)
+    config: |
+      {
+        "servers": {
+          "xperience-management-mcp": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["@kentico/management-api-mcp@latest"],
+            "env": {
+              "MANAGEMENT_API_URL": "http://localhost:5001/kentico-api/management",
+              "MANAGEMENT_API_SECRET": "<YourSecretValue>"
+            }
+          }
+        }
+      }
+    cli_options:
+      - flag: "--enabled-tools <names> (-e)"
+        description: Expose only the listed tools.
+      - flag: "--disabled-tools <names> (-x)"
+        description: Hide the listed tools.
+      - flag: "--dynamic-tools (-d)"
+        description: >-
+          Expose only three dynamic meta-tools (list_available_tools,
+          get_tool_schema, call_tool) instead of registering every tool
+          individually, reducing the initial token footprint.
+    tool_discovery: >-
+      Tools are NOT static. The server reads the available operations from the
+      management API endpoints of the running Xperience application at startup,
+      so the exposed tool set tracks that project's Xperience version. The list
+      below is the published capabilities reference (2026-08-13), not a
+      tools/list response — the live server cannot be introspected without a
+      running customer application.
+    tool_groups:
+      - object: Content types and reusable field schemas
+        operations: [Create, Read, Update, Delete]
+        note: Email content types are not currently supported.
+        tools: [list_content_types, get_content_type, create_content_type, update_content_type,
+          delete_content_type, create_content_type_field, update_content_type_field,
+          delete_content_type_field, assign_content_type_channel, unassign_content_type_channel,
+          allow_parent_content_type, disallow_parent_content_type, allow_child_content_type,
+          disallow_child_content_type, list_reusable_schemas, get_reusable_schema,
+          create_reusable_schema, update_reusable_schema, delete_reusable_schema,
+          create_reusable_schema_field, update_reusable_schema_field, delete_reusable_schema_field]
+      - object: Content items
+        operations: [Create, Read, Update, Delete, Move, Unpublish]
+        tools: [list_content_items, get_content_item, get_content_item_variant,
+          get_content_item_variant_metadata, create_content_item, create_content_item_variant,
+          update_content_item, update_content_item_variant, delete_content_item_variant,
+          move_content_item, unpublish_content_item_variant]
+      - object: Pages
+        operations: [Create, Read, Update, Delete, Move, Unpublish]
+        note: Page preset templates are not supported.
+        tools: [list_web_pages, get_web_page, get_web_page_language_variant, create_web_page,
+          create_web_page_language_variant, create_web_page_folder,
+          create_web_page_folder_language_variant, update_web_page_language_variant,
+          update_web_page_tree_node, delete_web_page_language_variant, move_web_page,
+          unpublish_web_page_language_variant, get_web_page_allowed_content_types]
+      - object: Content hub folders
+        operations: [Create, Read, Update, Delete, Move]
+        tools: [list_content_folders, get_content_folder, create_content_folder,
+          update_content_folder, move_content_folder, delete_content_folder]
+      - object: Assets
+        operations: [Upload]
+        note: >-
+          Asset uploads require files to be placed in a configured upload
+          directory before the AI agent can reference them.
+        tools: [upload_asset]
+      - object: Channels
+        operations: [Create, Read, Update, Delete]
+        tools: [list_channels, get_channel, create_channel, update_channel, delete_channel,
+          list_channel_scopes, create_channel_scope, update_channel_scope, delete_channel_scope,
+          list_email_senders, get_email_sender, create_email_sender, delete_email_sender]
+      - object: Workspaces
+        operations: [Create, Read, Update, Delete]
+        tools: [list_workspaces, get_workspace, create_workspace, update_workspace, delete_workspace]
+      - object: Languages
+        operations: [Create, Read, Update, Delete]
+        tools: [list_languages, get_language, create_language, update_language, delete_language]
+      - object: Taxonomies and tags
+        operations: [Create, Read, Update, Delete, Move]
+        tools: [list_taxonomies, get_taxonomy, create_taxonomy, update_taxonomy, delete_taxonomy,
+          list_tags, get_tag, create_tag, update_tag, delete_tag, move_tag, move_tags]
+      - object: Page Builder components
+        operations: [Create, Read, Update, Delete]
+        tools: [get_page_builder_configuration, get_page_builder_page_template_configuration,
+          get_page_builder_available_editable_areas, get_page_builder_widget,
+          get_page_builder_section, get_page_builder_page_template, add_page_builder_section,
+          remove_page_builder_section, add_page_builder_widget, remove_page_builder_widget,
+          update_page_builder_section_properties, update_page_builder_widget_properties,
+          update_page_builder_page_template_properties, change_page_builder_page_template,
+          get_page_builder_components, get_page_builder_page_templates]
+      - object: Member roles
+        operations: [Read]
+        tools: [list_member_roles, get_member_role]
+      - object: UI form components and data types
+        operations: [Read]
+        tools: [list_form_components, get_form_component, list_data_types, get_data_type]
+
+  - name: kentico-component-registry-mcp
+    title: Component Registry MCP server
+    mode: local-stdio
+    transport: http
+    self_hosted: true
+    package: Kentico.Xperience.ComponentRegistry
+    package_url: https://www.nuget.org/packages/Kentico.Xperience.ComponentRegistry
+    package_version: 1.0.1
+    package_published: '2026-03-14'
+    source_code: https://github.com/Kentico/xperience-by-kentico-component-registry
+    auth: unknown
+    status: published
+    verified: searched
+    note: >-
+      A self-hosted MCP server that runs INSIDE the customer's own Xperience
+      application (the repo's own .vscode/mcp.json points a "DancingGoat" server
+      at http://localhost:18319/mcp). It lets agents enumerate every registered
+      Page Builder / Form Builder / admin component in that application. Because
+      it is served by the customer's app, there is no Kentico-operated endpoint.
+
+related:
+  content_modeling_mcp: https://docs.kentico.com/guides/architecture/content-modeling/content-modeling-mcp
+  kenticopilot: https://docs.kentico.com/guides/development/kenticopilot
+  skills: skills/_index.yml

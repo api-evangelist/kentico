@@ -1,0 +1,106 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.kentico.com/documentation/developers-and-admins/installation/support-policy
+note: >-
+  Kentico publishes an unusually explicit product lifecycle: a named support
+  window tied to release dates, a written 12-month backward-compatibility
+  guarantee for deprecated APIs, a weekly hotfix / monthly refresh cadence, a
+  dated changelog with a Breaking changes section, and a public status page.
+
+versioning:
+  scheme: product-version
+  current: 31.7.3
+  current_observed: '2026-08-13'
+  docs: https://docs.kentico.com/documentation/developers-and-admins/installation/update-xperience-by-kentico-projects
+  note: >-
+    The API is not URL- or header-versioned. Xperience by Kentico is deployed
+    software, so the "API version" is the version of the Kentico.Xperience.*
+    NuGet packages installed in the customer's project. The application refuses
+    to start until the NuGet package version matches the database version.
+
+release_cadence:
+  hotfix:
+    frequency: weekly
+    contents: issue fixes and reported security vulnerabilities
+  refresh:
+    frequency: monthly (schedule may vary with the features included)
+    contents: new features, changes, and fixes
+    breaking_changes: >-
+      In rare cases refreshes (major version updates only) may contain breaking
+      changes, typically to obsolete or infrequently-used code. Flagged in the
+      changelog's Breaking changes section.
+
+support_policy:
+  url: https://docs.kentico.com/documentation/developers-and-admins/installation/support-policy
+  window: >-
+    Support cycles start in November. When a new cycle starts, support continues
+    for all releases from the previous cycle plus the final Refresh release of
+    the cycle before that (typically the October Refresh); support ends for all
+    older releases. Releases in October therefore carry up to 24 months of
+    support.
+  unsupported_consequence: >-
+    Kentico may limit the scope of support services for issues reported against
+    an unsupported release. Fixes and features always land in the LATEST
+    release, never as backports.
+  services:
+    support: https://www.kentico.com/services/support
+    consulting: https://www.kentico.com/services/consulting
+
+deprecation:
+  policy_url: https://docs.kentico.com/documentation/developers-and-admins/installation/support-policy
+  guidelines_url: https://docs.kentico.com/documentation/developers-and-admins/customization/stable-customization-guidelines
+  backward_compatibility_months: 12
+  policy: >-
+    Xperience maintains backward compatibility for at least 12 months after a
+    feature is announced as deprecated or an API member is marked as obsolete.
+    In most cases a replacement API ships side-by-side for the duration of the
+    compatibility period, with the transition path described in the obsolete
+    message.
+  exceptions: >-
+    Rare breaking changes may occur without prior notice or inside the 12-month
+    window — to address a security vulnerability, or for unavoidable
+    architectural change. Kentico commits to providing guidance or automated
+    solutions in those cases.
+  mechanism: >-
+    .NET [Obsolete] attributes on API members, plus a "Newly obsolete API"
+    section in each changelog entry naming the replacement.
+  sunset_header: false
+  sunset_header_note: >-
+    RFC 8594 Sunset/Deprecation HTTP headers are not used — deprecation is
+    signalled at the .NET API level and in the changelog, not over the wire.
+
+sla:
+  url: https://docs.kentico.com/documentation/developers-and-admins/saas/saas-service-plans
+  uptime_target: "Designed for 99.9%"
+  applies_to: Kentico SaaS service plans (all tiers)
+  monitoring: 24/7/365 availability management and health monitoring
+  bug_fixing: 7-day bug fixing policy for non-third-party issues
+  backups:
+    daily_retention: 3 days (7+ days on higher plans)
+    restore_points: 30 days (or more)
+
+status_page: https://status.xperience-portal.com/
+status_page_note: >-
+  Public, opt-in notification subscription, listed on every SaaS service plan.
+  Covers Xperience Portal uptime statistics; per-project outage and uptime
+  monitoring lives inside the customer's own Xperience Portal.
+
+changelog: https://docs.kentico.com/changelog/
+roadmap: https://roadmap.kentico.com/
+
+preview_features:
+  - name: Management API
+    status: preview
+    note: Expect changes, potentially including breaking changes.
+    docs: https://docs.kentico.com/documentation/developers-and-admins/api/management-api
+  - name: Management MCP server
+    status: preview
+    note: Formerly the Content types MCP server; npm package versions carry -preview.
+  - name: Kentico.Xperience.ManagementApi (NuGet)
+    status: prerelease
+    note: Versions carry a -preview suffix after the Xperience version number.
+
+deprecated_operations: []
+deprecated_operations_note: >-
+  No OpenAPI is published, so no operation-level deprecation can be derived.
+  Obsolete .NET API members are enumerated per release in the changelog.

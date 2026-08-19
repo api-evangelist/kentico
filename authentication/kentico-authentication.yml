@@ -1,0 +1,96 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/ (none present) — profile assembled from Kentico's own documentation
+docs:
+  - https://docs.kentico.com/documentation/developers-and-admins/configuration/headless-channel-management
+  - https://docs.kentico.com/documentation/developers-and-admins/api/management-api/configure-management-mcp-server
+  - https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
+  - https://docs.kentico.com/k12sp/integrating-3rd-party-systems/kentico-rest-service/authenticating-rest-requests
+note: >-
+  Kentico publishes no OpenAPI, so derive-authentication.py found zero security
+  schemes (it aggregates OpenAPI securitySchemes and this repo has none). This
+  profile is SEARCHED from the documentation instead. Xperience by Kentico is
+  customer-deployed software: three of the four schemes below are enforced by
+  the customer's own instance, and only the Xperience Portal API is
+  authenticated against a host Kentico operates.
+
+summary:
+  types: [apiKey, http]
+  api_key_in: [header]
+  http_schemes: [bearer, basic]
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+
+schemes:
+  - name: HeadlessChannelApiKey
+    type: apiKey
+    in: header
+    parameter_name: Authorization
+    format: "Bearer <ApiKey>"
+    surface: Headless channel GraphQL API
+    scope: per headless channel
+    managed_in: >-
+      Xperience administration → Channel management → the headless channel →
+      API keys tab. Requires the "Manage headless channel API keys" permission.
+    revocation: >-
+      Keys can be disabled or deleted; disabling revokes access immediately and
+      further requests with that key return an authorization error.
+    guidance: >-
+      Kentico explicitly recommends NOT placing the key in a browser client —
+      proxy GraphQL requests through a backend that adds the Authorization
+      header, because a key sent from a public page is visible to anyone.
+    docs: https://docs.kentico.com/documentation/developers-and-admins/configuration/headless-channel-management
+
+  - name: XperiencePortalPAT
+    type: http
+    scheme: bearer
+    parameter_name: Authorization
+    format: "Bearer <PERSONAL_ACCESS_TOKEN>"
+    surface: Xperience Portal API (SaaS deployment)
+    host: https://xperience-portal.com
+    scope: per Xperience Portal user; project addressed by PROJECT_GUID in the path
+    roles: >-
+      Uploads to non-production environments and (in extraordinary
+      circumstances) production require the DevOps Engineer or Tenant
+      Administrator role.
+    docs: https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
+
+  - name: ManagementApiSecret
+    type: apiKey
+    in: header
+    surface: Management API (preview) + Management MCP server
+    format: shared secret, minimum 32 characters
+    configured_by: >-
+      ManagementApiOptions.Secret passed to AddKenticoManagementApi() in
+      Program.cs; supplied to the MCP server as the MANAGEMENT_API_SECRET
+      environment variable.
+    warning: >-
+      Kentico states the management API provides only basic authentication and
+      NO per-operation authorization, and must not be enabled on production or
+      any publicly reachable instance. It is a local-development surface.
+    status: preview
+    docs: https://docs.kentico.com/documentation/developers-and-admins/api/management-api/configure-management-mcp-server
+
+  - name: RestServiceBasic
+    type: http
+    scheme: basic
+    surface: Kentico REST service (Kentico 12/13 line)
+    format: Base64-encoded username:password, or a hash parameter for public endpoints
+    docs: https://docs.kentico.com/k12sp/integrating-3rd-party-systems/kentico-rest-service/authenticating-rest-requests
+
+unauthenticated_surfaces:
+  - name: Kentico Docs MCP server
+    url: https://docs.kentico.com/mcp
+    note: >-
+      Probed anonymously on 2026-08-13 — initialize and tools/list both returned
+      200 with no credential and no OAuth challenge. There is no
+      /.well-known/oauth-protected-resource (404).
+
+not_supported:
+  oauth2: >-
+    No OAuth 2.0 or OpenID Connect surface is documented for any Kentico API.
+    scopes/ is therefore intentionally absent — derive-oauth-scopes.py reported
+    zero oauth2 schemes and zero scopes for this provider.
+  mutual_tls: not documented

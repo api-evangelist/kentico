@@ -1,0 +1,252 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/kentico-mcp.yml (Management MCP capabilities reference) +
+  graphql/kentico-schema.graphql
+note: >-
+  There is no OpenAPI to walk for $ref links, so this entity graph is derived
+  from the two machine-readable contracts Kentico does expose: the Management
+  MCP tool surface (whose object groups and their Create/Read/Update/Delete/Move
+  operations name the platform entities and their containment) and the headless
+  GraphQL schema's system types. Only relationships the tool surface or the
+  GraphQL schema makes explicit are recorded. Project-specific content types are
+  deliberately absent — they are defined per customer, so no fixed schema
+  exists.
+
+entities:
+  - name: ContentType
+    description: >-
+      Definition of a content structure: a set of fields, optionally composed
+      from reusable field schemas, scoped to one or more channels.
+    tools: [list_content_types, get_content_type, create_content_type, update_content_type, delete_content_type]
+    identifiers: [code name (e.g. Acme.Product)]
+    graphql: >-
+      Each content type materializes as a GraphQL object type plus a
+      <type>Collection field, a Sorter input type and where filters.
+
+  - name: ContentTypeField
+    description: A single field on a content type, with a data type from the data-type registry.
+    tools: [create_content_type_field, update_content_type_field, delete_content_type_field]
+
+  - name: ReusableFieldSchema
+    description: A named group of fields composable into multiple content types.
+    tools: [list_reusable_schemas, get_reusable_schema, create_reusable_schema, update_reusable_schema, delete_reusable_schema]
+
+  - name: ContentItem
+    description: An instance of a content type living in the Content hub.
+    tools: [list_content_items, get_content_item, create_content_item, update_content_item, move_content_item]
+    graphql_system_fields: [_System.id (UUID), _System.contentType (String)]
+
+  - name: ContentItemVariant
+    description: The language variant of a content item — the unit that is published, unpublished and versioned.
+    tools: [get_content_item_variant, get_content_item_variant_metadata, create_content_item_variant, update_content_item_variant, delete_content_item_variant, unpublish_content_item_variant]
+
+  - name: ContentFolder
+    description: Content hub folder organizing content items into a tree.
+    tools: [list_content_folders, get_content_folder, create_content_folder, update_content_folder, move_content_folder, delete_content_folder]
+
+  - name: WebPage
+    description: A node in a website channel's content tree.
+    tools: [list_web_pages, get_web_page, create_web_page, move_web_page, update_web_page_tree_node, get_web_page_allowed_content_types]
+    graphql: _WebPage system type exposes the canonical page URL.
+
+  - name: WebPageLanguageVariant
+    description: Language variant of a page — the published unit.
+    tools: [get_web_page_language_variant, create_web_page_language_variant, update_web_page_language_variant, delete_web_page_language_variant, unpublish_web_page_language_variant]
+
+  - name: WebPageFolder
+    description: Folder node in the website content tree.
+    tools: [create_web_page_folder, create_web_page_folder_language_variant]
+
+  - name: Channel
+    description: >-
+      Delivery surface — website, email or headless. The licensing unit of the
+      platform and the scoping unit for content types and API keys.
+    tools: [list_channels, get_channel, create_channel, update_channel, delete_channel]
+
+  - name: ChannelScope
+    description: Binding that limits which content types are available in a channel.
+    tools: [list_channel_scopes, create_channel_scope, update_channel_scope, delete_channel_scope]
+
+  - name: EmailSender
+    description: Verified sender identity for an email channel.
+    tools: [list_email_senders, get_email_sender, create_email_sender, delete_email_sender]
+
+  - name: Workspace
+    description: Content-access boundary used by role management to partition the Content hub.
+    tools: [list_workspaces, get_workspace, create_workspace, update_workspace, delete_workspace]
+
+  - name: Language
+    description: Project language with a formatting culture and a fallback language.
+    tools: [list_languages, get_language, create_language, update_language, delete_language]
+
+  - name: Taxonomy
+    description: Named hierarchy of tags.
+    tools: [list_taxonomies, get_taxonomy, create_taxonomy, update_taxonomy, delete_taxonomy]
+
+  - name: Tag
+    description: A node in a taxonomy, assignable to content items via taxonomy fields.
+    tools: [list_tags, get_tag, create_tag, update_tag, delete_tag, move_tag, move_tags]
+    graphql: _Tag system type exposes name, title, description.
+
+  - name: Asset
+    description: Binary attached to a content item (content item asset).
+    tools: [upload_asset]
+    note: >-
+      URLs for assets in their LATEST version are valid for 10 minutes after
+      retrieval.
+
+  - name: PageBuilderWidget
+    description: Configurable component placed inside a section of an editable area.
+    tools: [get_page_builder_widget, add_page_builder_widget, remove_page_builder_widget, update_page_builder_widget_properties]
+
+  - name: PageBuilderSection
+    description: Layout container inside an editable area, holding widgets.
+    tools: [get_page_builder_section, add_page_builder_section, remove_page_builder_section, update_page_builder_section_properties]
+
+  - name: PageTemplate
+    description: Predefined Page Builder configuration applied to a page.
+    tools: [get_page_builder_page_template, change_page_builder_page_template, update_page_builder_page_template_properties, get_page_builder_page_templates]
+
+  - name: EditableArea
+    description: Region of a page template into which sections may be placed.
+    tools: [get_page_builder_available_editable_areas]
+
+  - name: MemberRole
+    description: Role assigned to live-site members (read-only through the API).
+    tools: [list_member_roles, get_member_role]
+
+  - name: FormComponent
+    description: UI form component available in the field editor (read-only through the API).
+    tools: [list_form_components, get_form_component]
+
+  - name: DataType
+    description: Field data type in the data-type registry (read-only through the API).
+    tools: [list_data_types, get_data_type]
+
+relationships:
+  - from: ContentType
+    to: ContentTypeField
+    kind: has_many
+    via: fields
+  - from: ContentType
+    to: ReusableFieldSchema
+    kind: has_many
+    via: reusable field schema composition
+  - from: ContentType
+    to: Channel
+    kind: has_many
+    via: assign_content_type_channel / unassign_content_type_channel
+  - from: ContentType
+    to: ContentType
+    kind: has_many
+    via: allow_parent_content_type / allow_child_content_type (tree placement rules)
+  - from: ReusableFieldSchema
+    to: ContentTypeField
+    kind: has_many
+    via: create_reusable_schema_field
+  - from: ContentItem
+    to: ContentType
+    kind: belongs_to
+    via: _System.contentType
+  - from: ContentItem
+    to: ContentItemVariant
+    kind: has_many
+    via: language
+  - from: ContentItem
+    to: ContentFolder
+    kind: belongs_to
+    via: move_content_item
+  - from: ContentFolder
+    to: ContentFolder
+    kind: has_many
+    via: move_content_folder (folder tree)
+  - from: ContentItem
+    to: ContentItem
+    kind: has_many
+    via: linked-item fields (GraphQL nested collections; MaxFieldCycleDepth default 5)
+  - from: ContentItem
+    to: Asset
+    kind: has_many
+    via: content item asset fields
+  - from: ContentItem
+    to: Tag
+    kind: has_many
+    via: taxonomy fields (_Tag)
+  - from: WebPage
+    to: WebPageLanguageVariant
+    kind: has_many
+    via: language
+  - from: WebPage
+    to: WebPage
+    kind: has_many
+    via: move_web_page (content tree)
+  - from: WebPage
+    to: Channel
+    kind: belongs_to
+    via: website channel
+  - from: WebPage
+    to: ContentType
+    kind: belongs_to
+    via: get_web_page_allowed_content_types
+  - from: WebPageLanguageVariant
+    to: PageTemplate
+    kind: has_one
+    via: change_page_builder_page_template
+  - from: PageTemplate
+    to: EditableArea
+    kind: has_many
+    via: get_page_builder_available_editable_areas
+  - from: EditableArea
+    to: PageBuilderSection
+    kind: has_many
+    via: add_page_builder_section
+  - from: PageBuilderSection
+    to: PageBuilderWidget
+    kind: has_many
+    via: add_page_builder_widget
+  - from: Channel
+    to: ChannelScope
+    kind: has_many
+    via: create_channel_scope
+  - from: Channel
+    to: EmailSender
+    kind: has_many
+    via: create_email_sender (email channels)
+  - from: Taxonomy
+    to: Tag
+    kind: has_many
+    via: create_tag
+  - from: Tag
+    to: Tag
+    kind: has_many
+    via: move_tag (tag hierarchy)
+  - from: ContentItem
+    to: Workspace
+    kind: belongs_to
+    via: workspace the content is retrieved from
+  - from: ContentItemVariant
+    to: Language
+    kind: belongs_to
+    via: language code
+  - from: Language
+    to: Language
+    kind: has_one
+    via: fallback language
+  - from: ContentTypeField
+    to: DataType
+    kind: belongs_to
+    via: data type
+  - from: ContentTypeField
+    to: FormComponent
+    kind: has_one
+    via: UI form component
+
+counts:
+  entities: 22
+  relationships: 29
+
+caveat: >-
+  Entity names are the platform objects Kentico exposes. Field-level schemas are
+  project-specific: every customer defines their own content types, so the
+  GraphQL schema and the concrete data model differ per deployment.

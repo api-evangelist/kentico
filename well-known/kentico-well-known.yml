@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every Kentico host named in apis.yml
+note: >-
+  Probed on 2026-08-13. Only www.kentico.com serves a /.well-known/ document —
+  an RFC 9116 security.txt carrying a single Contact line. Every other path on
+  every other host returned 404 with an HTML body. Xperience by Kentico is
+  customer-deployed software, so the product's own API hosts are customer
+  domains and are not probeable from here; the hosts below are the ones Kentico
+  itself operates.
+
+hosts:
+  - host: https://www.kentico.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/plain
+        file: kentico-security.txt
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+
+  - host: https://docs.kentico.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        note: >-
+          Probed because docs.kentico.com hosts a live remote MCP server at
+          /mcp. That server answers tools/list anonymously — there is no OAuth
+          protected-resource metadata to discover.
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+
+  - host: https://api-reference.kentico.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+
+  - host: https://xperience-portal.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+
+  - host: https://community.kentico.com
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 404
+
+summary:
+  hosts_probed: 5
+  paths_probed: 24
+  documents_found: 1
+  security_txt: true
+  openid_configuration: false
+  api_catalog: false
+  agent_card: false

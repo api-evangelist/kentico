@@ -1,0 +1,118 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
+  + https://docs.kentico.com/documentation/developers-and-admins/configuration/headless-channel-management
+format: none
+rfc9457: false
+note: >-
+  Kentico publishes no OpenAPI, so nothing here is derived from 4xx/5xx response
+  objects — there are none to read. Kentico also publishes no error-code
+  registry and no problem+json contract. What IS documented, and what is
+  captured below, are the specific failure conditions and the HTTP status
+  vocabulary Kentico names in its own documentation. An honest short catalog
+  beats an invented one.
+
+envelope:
+  graphql:
+    shape: standard GraphQL response with a top-level errors[] array
+    codes_published: false
+  rest:
+    shape: not documented
+    codes_published: false
+
+problems:
+  - id: headless-api-key-missing-or-invalid
+    surface: Headless channel GraphQL API
+    condition: >-
+      Request to a headless channel GraphQL endpoint without a valid, enabled
+      API key in the Authorization header.
+    result: authorization error
+    remediation: >-
+      Create or re-enable an API key on the headless channel's API keys tab in
+      Channel management, and send it as `Authorization: Bearer <ApiKey>`.
+    source: https://docs.kentico.com/documentation/developers-and-admins/configuration/headless-channel-management
+
+  - id: headless-api-key-disabled
+    surface: Headless channel GraphQL API
+    condition: >-
+      An API key that was previously valid has been disabled or deleted in the
+      administration.
+    result: >-
+      Access is revoked immediately; any further request using that key results
+      in an authorization error.
+    remediation: Re-enable the key, or issue a new one and rotate the consumer.
+
+  - id: headless-asset-url-expired
+    surface: Headless channel GraphQL API
+    condition: >-
+      A retrieved content item asset URL for the LATEST version of an asset is
+      used more than 10 minutes after retrieval.
+    result: The URL is no longer valid.
+    remediation: Re-retrieve the asset to obtain a fresh URL.
+
+  - id: headless-max-field-cycle-depth
+    surface: Headless channel GraphQL API
+    condition: >-
+      A query traverses recursively linked content beyond the maximum field
+      cycle depth (default 5).
+    result: GraphQL depth-limit error.
+    remediation: >-
+      Reduce query depth, or raise the MaxFieldCycleDepth configuration key on
+      the headless API.
+
+  - id: saas-deployment-warmup-status
+    surface: Xperience Portal API / SaaS deployment
+    condition: >-
+      During the deployment warm-up check the application returns an HTTP status
+      outside the allowed set.
+    allowed_statuses: [200, 201, 202, 203, 204, 301, 302, 303, 304, 307, 308, 401, 403]
+    result: >-
+      The slot swap fails and the entire deployment is marked as failed. This
+      commonly bites projects whose IP allowlists reject blocked requests with
+      429 or 503.
+    remediation: >-
+      Make IP-based access restrictions return 401 or 403 for blocked requests
+      rather than 429/503.
+    source: https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
+
+  - id: saas-deployment-package-too-large
+    surface: Xperience Portal API / SaaS deployment
+    condition: Deployment package ZIP exceeds the 2 GB maximum size.
+    result: Upload rejected.
+    remediation: >-
+      Use the custom restore path for large initial data loads rather than the
+      deployment package.
+
+  - id: saas-deployment-unavailable
+    surface: Xperience Portal API / SaaS deployment
+    condition: >-
+      Upload attempted during scheduled Xperience Portal project maintenance or
+      during initial project creation.
+    result: Upload unavailable.
+    remediation: Retry outside the maintenance window.
+
+  - id: readonly-mode-503
+    surface: Live site during read-only deployment
+    condition: >-
+      A subscription/unsubscription request arrives while the application is in
+      read-only mode and no fallback page is configured.
+    result: HTTP 503
+    remediation: >-
+      Configure a fallback page on the channel so the request redirects instead
+      of erroring.
+    source: https://docs.kentico.com/documentation/developers-and-admins/deployment/read-only-deployments
+
+  - id: version-mismatch-startup
+    surface: Xperience application
+    condition: >-
+      The installed Kentico.Xperience.* NuGet package version does not match the
+      project database version.
+    result: The application will not start.
+    remediation: "Run `dotnet run --no-build --kxp-update` to update the database and files."
+    source: https://docs.kentico.com/documentation/developers-and-admins/installation/update-xperience-by-kentico-projects
+
+gaps:
+  - No published error-code registry for the headless GraphQL API.
+  - No RFC 9457 application/problem+json contract on any surface.
+  - No documented HTTP status table for the Management API (preview).

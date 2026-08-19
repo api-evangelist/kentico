@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.kentico.com/documentation/developers-and-admins/installation
+note: >-
+  Kentico's command surface is .NET-native rather than a single branded binary.
+  It is made of three real things: (1) dotnet new templates shipped in
+  Kentico.Xperience.Templates, (2) dotnet tools installed globally
+  (kentico-xperience-dbmanager, xperience-manager), and (3) --kxp-* switches the
+  Xperience application itself accepts when run from the CLI. All three are
+  first-party and documented.
+
+tools:
+  - name: kentico-xperience-dbmanager
+    kind: dotnet tool
+    install: dotnet tool install --global kentico-xperience-dbmanager
+    purpose: Create and install the Xperience project database.
+    docs: https://docs.kentico.com/documentation/developers-and-admins/installation
+
+  - name: xperience-manager
+    kind: dotnet tool
+    package: Kentico.Xperience.Manager
+    version: 5.4.0
+    published: '2026-04-23'
+    install: dotnet tool install --global Kentico.Xperience.Manager
+    purpose: >-
+      Simplifies Xperience by Kentico project management — installing,
+      updating, and administering local projects.
+    source_code: https://github.com/Kentico/xperience-by-kentico-manager
+
+  - name: "@kentico/management-api-mcp"
+    kind: node CLI (stdio MCP server)
+    install: npx -y @kentico/management-api-mcp@latest
+    bin: xperience-mcp
+    purpose: Expose the local Xperience management API to AI agents as MCP tools.
+    options:
+      - "--enabled-tools <names> (-e)"
+      - "--disabled-tools <names> (-x)"
+      - "--dynamic-tools (-d)"
+    detail: mcp/kentico-mcp.yml
+
+templates:
+  install: dotnet new install Kentico.Xperience.Templates
+  update: dotnet new update
+  commands:
+    - name: dotnet new kentico-xperience-mvc -n <Name>
+      description: Create a new Xperience by Kentico ASP.NET Core project.
+    - name: dotnet new kentico-xperience-sass
+      description: SaaS-ready project template preconfigured for CD and Xperience Portal.
+
+application_commands:
+  invocation: "dotnet run --no-build -- <switch>   (or dotnet <assembly>.dll <switch> for a built app)"
+  groups:
+    - group: update
+      commands:
+        - command: --kxp-update
+          description: >-
+            Update the project database and file system to match the installed
+            NuGet package version. Required after every hotfix/refresh update.
+    - group: continuous-integration
+      commands:
+        - command: --kxp-ci-enable
+          description: Enable Continuous Integration serialization for the project.
+        - command: --kxp-ci-store
+          description: Serialize all supported objects to the CIRepository folder.
+        - command: --kxp-ci-restore
+          description: Restore serialized CI data into the database.
+    - group: continuous-deployment
+      commands:
+        - command: --kxp-cd-store
+          description: Serialize CD-supported objects for deployment packaging.
+        - command: --kxp-cd-restore
+          description: Restore a CD data package into the target environment database.
+
+flows:
+  - name: Update an Xperience project
+    steps:
+      - Update all Kentico.Xperience.* NuGet packages.
+      - "Run: dotnet run --no-build --kxp-update"
+      - "Update admin client deps: cd <Project>.Web.Admin/Client && npm update"
+      - Verify the version in the Xperience administration.
+    docs: https://docs.kentico.com/documentation/developers-and-admins/installation/update-xperience-by-kentico-projects
+    agent_skill: skills/kentico-project-lifecycle-update-xperience.md
+
+  - name: Automate a SaaS deployment
+    steps:
+      - "Serialize CD data: dotnet run --no-build -- --kxp-cd-store"
+      - Create the SaaS deployment ZIP package.
+      - "POST it to the Xperience Portal API deployment endpoint with a Bearer PAT."
+    docs: https://docs.kentico.com/guides/configuration/saas/saas-walkthrough/saas-update-with-xperience-portal-api
+    reference_script: https://github.com/Kentico/xperience-by-kentico-training-guides/blob/finished/scripts/Update-XperienceProjectWithDatabase.ps1
+
+packages: packages/kentico-packages.yml

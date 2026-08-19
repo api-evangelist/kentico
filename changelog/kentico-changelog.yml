@@ -1,0 +1,96 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.kentico.com/changelog/
+url: https://docs.kentico.com/changelog/
+note: >-
+  Kentico publishes a dated, per-release changelog for Xperience by Kentico with
+  named sections for new features, fixed issues, Breaking changes and Newly
+  obsolete API. Recent window only — the live changelog is the source of truth.
+  A second changelog tracks documentation updates at
+  https://docs.kentico.com/changelog/documentation-updates.
+
+scheme:
+  style: product-version (MAJOR.MINOR.PATCH)
+  cadence:
+    hotfix: weekly (PATCH — fixes and security)
+    refresh: monthly (MINOR — features, changes, fixes)
+  breaking_changes_section: true
+  obsolete_api_section: "Newly obsolete API"
+current_version: 31.7.3
+current_version_date: '2026-08-13'
+
+entries:
+  - version: 31.7.3
+    date: '2026-08-13'
+    type: hotfix
+    highlights: [Security fixes]
+    breaking: false
+  - version: 31.7.2
+    date: '2026-08-06'
+    type: hotfix
+    highlights: [Rich text editor toolbar fixes]
+    breaking: false
+  - version: 31.7.1
+    date: '2026-07-30'
+    type: hotfix
+    highlights: [Third-party dependency updates]
+    breaking: false
+  - version: 31.7.0
+    date: '2026-07-28'
+    type: refresh
+    highlights:
+      - Content locking for emails
+      - Custom automation triggers and conditions
+      - Management MCP server improvements
+    breaking: false
+  - version: 31.6.3
+    date: '2026-07-16'
+    type: hotfix
+    highlights: [Content synchronization ordering fix]
+    breaking: false
+  - version: 31.6.2
+    date: '2026-07-09'
+    type: hotfix
+    highlights: [MJML include configuration, Linked content dialog performance]
+    breaking: false
+  - version: 31.6.1
+    date: '2026-07-02'
+    type: hotfix
+    highlights: [Admin UI mobile fixes, Continuous Deployment line-ending corrections]
+    breaking: false
+  - version: 31.6.0
+    date: '2026-06-29'
+    type: refresh
+    highlights:
+      - Content locking
+      - Management MCP server expanded capabilities
+      - Custom automation actions
+      - Storage path mapping
+    breaking: false
+  - version: 31.5.0
+    date: '2026-05-14'
+    type: refresh
+    highlights:
+      - Overwrite protection
+      - AIRA context enhancements
+      - Detailed content sync selection
+    breaking: true
+    breaking_detail: >-
+      Dependency updates to System.IO.Hashing and Microsoft.Data.SqlClient
+      require manual intervention for projects with existing dependency pins.
+  - version: 31.4.0
+    date: '2026-04-16'
+    type: refresh
+    highlights:
+      - SEO & GEO Specialist (preview)
+      - Campaign Manager expansion
+      - Customer data platform features
+    breaking: false
+
+related:
+  documentation_updates: https://docs.kentico.com/changelog/documentation-updates
+  update_guide: https://docs.kentico.com/documentation/developers-and-admins/installation/update-xperience-by-kentico-projects
+  agent_skill: skills/kentico-project-lifecycle-update-xperience.md
+  agent_skill_note: >-
+    Kentico ships an `update-xperience` Agent Skill that reads every changelog
+    entry between the current and target versions and drives the update.

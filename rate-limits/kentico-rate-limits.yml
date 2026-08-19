@@ -1,3 +1,21 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.kentico.com/documentation/developers-and-admins/security-guidelines/rate-limiting
+limit_count: 0
+published_limits: false
+response_headers: []
+retry_after: false
+exhaustion_status: null
+limits_note: >-
+  Kentico publishes NO enforced API rate limits and NO rate-limit response
+  headers. Xperience by Kentico is customer-deployed software: apart from a
+  built-in partitioned limiter on administration user-management endpoints
+  (sign-in, password reset), rate limiting is the implementing developer's
+  responsibility via ASP.NET Core rate limiting middleware. The values under
+  `recommended_limits` are Kentico's DOCUMENTED RECOMMENDATIONS for developers
+  to configure, not limits any Kentico-operated endpoint enforces — which is why
+  limit_count is 0. An agent gets no runtime rate-limit signal from this
+  platform unless the customer builds one.
 name: Kentico Rate Limits
 description: >-
   Xperience by Kentico does not enforce a global rate limiter or preset API

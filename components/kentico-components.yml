@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.kentico.com/documentation/developers-and-admins/customization/extend-the-administration-interface
+note: >-
+  Kentico ships client-side component libraries in two distinct families, and
+  they serve different audiences. The ADMIN family is a published React
+  component library on npm that developers use to build custom administration
+  UI. The BUILDER family is the in-product widget/section/form component model
+  that marketers assemble visually. Both are first-party and distinct from the
+  server-side SDKs catalogued in packages/.
+
+families:
+  - family: Administration UI (React)
+    audience: developers extending the Xperience administration interface
+    docs: https://docs.kentico.com/documentation/developers-and-admins/customization/extend-the-administration-interface
+    loader: SystemJS (in-browser modules), built with the Kentico webpack config
+    libraries:
+      - name: "@kentico/xperience-admin-components"
+        registry: npm
+        version: 31.7.3
+        published: '2026-08-13'
+        url: https://www.npmjs.com/package/@kentico/xperience-admin-components
+        description: >-
+          The React component library that powers the Xperience by Kentico
+          administration UI — the same components Kentico's own admin uses.
+      - name: "@kentico/xperience-admin-base"
+        registry: npm
+        version: 31.7.3
+        published: '2026-08-13'
+        url: https://www.npmjs.com/package/@kentico/xperience-admin-base
+        description: Base library for custom administration client modules.
+      - name: "@kentico/xperience-webpack-config"
+        registry: npm
+        version: 31.7.3
+        published: '2026-08-13'
+        url: https://www.npmjs.com/package/@kentico/xperience-webpack-config
+        description: webpack configuration for in-browser admin modules used via SystemJS.
+    agent_reference:
+      repo: https://github.com/Kentico/xperience-by-kentico-admin-design-components
+      description: >-
+        A modified reference library of the admin React components, published by
+        Kentico specifically to give AI agents component design context.
+      icons: https://github.com/Kentico/xperience-by-kentico-component-icons
+
+  - family: Page Builder components
+    audience: developers author them, marketers assemble them
+    docs: https://docs.kentico.com/documentation/developers-and-admins/development/builders/page-builder
+    component_types:
+      - widgets
+      - sections
+      - page templates
+      - editable areas
+    agent_surface: >-
+      Every Page Builder component type is addressable through the Management
+      MCP server (add_page_builder_widget, add_page_builder_section,
+      change_page_builder_page_template, …) — see mcp/kentico-mcp.yml.
+    discovery:
+      module: Kentico.Xperience.ComponentRegistry
+      version: 1.0.1
+      url: https://github.com/Kentico/xperience-by-kentico-component-registry
+      description: >-
+        Lets administrators and AI agents view every registered component in an
+        Xperience application, through the administration UI or a self-hosted
+        MCP server.
+    agent_skills:
+      - skills/kentico-web-development-page-builder-widgets.md
+      - skills/kentico-web-development-page-builder-structure.md
+
+  - family: Email Builder components
+    audience: developers and email marketers
+    docs: https://docs.kentico.com/documentation/developers-and-admins/development/builders/email-builder
+    starter_kit:
+      repo: https://github.com/Kentico/xperience-by-kentico-email-builder-starter-kit
+      description: >-
+        Starter kit of pre-built, customizable components for the Xperience
+        Email Builder.
+
+  - family: Form Builder components
+    audience: developers author form components, marketers assemble forms
+    docs: https://docs.kentico.com/documentation/developers-and-admins/customization/form-components
+    ui_form_components: >-
+      UI form components and their data types are readable through the
+      Management MCP server (list_form_components, get_form_component,
+      list_data_types, get_data_type).
+    integrations:
+      - name: Google Maps form component
+        repo: https://github.com/Kentico/xperience-by-kentico-google-maps
+        description: >-
+          Address input field with validation and autocomplete, added as a form
+          component in the Forms application.
+
+hosted_surfaces:
+  - name: GraphQL IDE
+    path: /graphql/ui
+    tool: Banana Cake Pop / Nitro
+    note: >-
+      Served by the customer's own Xperience application for interactive schema
+      exploration of the headless channel GraphQL API.
+
+packages: packages/kentico-packages.yml

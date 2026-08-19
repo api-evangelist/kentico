@@ -1,0 +1,265 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.nuget.org/profiles/Kentico + https://www.npmjs.com/org/kentico
+note: >-
+  Xperience by Kentico is distributed as first-party NuGet packages under the
+  Kentico.Xperience.* namespace and first-party npm packages under the @kentico
+  scope. Versions and publish dates below were read from the NuGet v3
+  registration API (api.nuget.org) and the npm registry (registry.npmjs.org) on
+  2026-08-13. The platform packages share the product version line (31.7.3),
+  which tracks the weekly hotfix / monthly refresh cadence documented in
+  lifecycle/kentico-lifecycle.yml. Kontent.ai packages (formerly Kentico Kontent)
+  are deliberately EXCLUDED — Kontent.ai is a separate company and its registry
+  packages do not belong to Kentico.
+package_count: 21
+official_count: 21
+
+packages:
+  # ── Platform (.NET) ────────────────────────────────────────────────────────
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Core
+    url: https://www.nuget.org/packages/Kentico.Xperience.Core
+    install: dotnet add package Kentico.Xperience.Core
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: Core platform library (content, objects, data layer)
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.WebApp
+    url: https://www.nuget.org/packages/Kentico.Xperience.WebApp
+    install: dotnet add package Kentico.Xperience.WebApp
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: ASP.NET Core integration (UseKentico middleware, live-site features)
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Admin
+    url: https://www.nuget.org/packages/Kentico.Xperience.Admin
+    install: dotnet add package Kentico.Xperience.Admin
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: Administration interface + admin customization API
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Templates
+    url: https://www.nuget.org/packages/Kentico.Xperience.Templates
+    install: dotnet new install Kentico.Xperience.Templates
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: dotnet new project templates (kentico-xperience-mvc, SaaS-ready template)
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.ImageProcessing
+    url: https://www.nuget.org/packages/Kentico.Xperience.ImageProcessing
+    install: dotnet add package Kentico.Xperience.ImageProcessing
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: Server-side image resizing / processing
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.ManagementApi
+    url: https://www.nuget.org/packages/Kentico.Xperience.ManagementApi
+    install: dotnet add package Kentico.Xperience.ManagementApi --prerelease
+    official: true
+    version: null
+    published: null
+    prerelease: true
+    note: >-
+      Prerelease-only package (versions carry a "-preview" suffix, e.g.
+      31.4.3-preview). The NuGet registration index resolved by this pipeline
+      reads stable channels; no stable version has been published, so version /
+      published are recorded null rather than guessed. Required to expose the
+      management API endpoints that the Management MCP server drives.
+    docs: https://docs.kentico.com/documentation/developers-and-admins/api/management-api
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Manager
+    url: https://www.nuget.org/packages/Kentico.Xperience.Manager
+    install: dotnet tool install --global Kentico.Xperience.Manager
+    official: true
+    version: 5.4.0
+    published: '2026-04-23'
+    role: xperience-manager dotnet CLI tool (see cli/kentico-cli.yml)
+    source_code: https://github.com/Kentico/xperience-by-kentico-manager
+
+  # ── First-party integrations / modules (.NET) ──────────────────────────────
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Lucene.Core
+    url: https://www.nuget.org/packages/Kentico.Xperience.Lucene.Core
+    install: dotnet add package Kentico.Xperience.Lucene.Core
+    official: true
+    version: 15.0.5
+    published: '2026-08-05'
+    source_code: https://github.com/Kentico/xperience-by-kentico-lucene
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.AzureSearch
+    url: https://www.nuget.org/packages/Kentico.Xperience.AzureSearch
+    install: dotnet add package Kentico.Xperience.AzureSearch
+    official: true
+    version: 10.0.0
+    published: '2026-08-03'
+    source_code: https://github.com/Kentico/xperience-by-kentico-azure-ai-search
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Algolia
+    url: https://www.nuget.org/packages/Kentico.Xperience.Algolia
+    install: dotnet add package Kentico.Xperience.Algolia
+    official: true
+    version: 7.0.1
+    published: '2026-05-21'
+    source_code: https://github.com/Kentico/xperience-by-kentico-algolia
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.TagManager
+    url: https://www.nuget.org/packages/Kentico.Xperience.TagManager
+    install: dotnet add package Kentico.Xperience.TagManager
+    official: true
+    version: 6.1.0
+    published: '2026-05-07'
+    source_code: https://github.com/Kentico/xperience-by-kentico-tag-manager
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.UMT
+    url: https://www.nuget.org/packages/Kentico.Xperience.UMT
+    install: dotnet add package Kentico.Xperience.UMT
+    official: true
+    version: 4.3.0
+    published: '2026-05-15'
+    role: Universal Migration Toolkit — import content from any data source
+    source_code: https://github.com/Kentico/xperience-by-kentico-universal-migration-tool
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.VirtualInbox
+    url: https://www.nuget.org/packages/Kentico.Xperience.VirtualInbox
+    install: dotnet add package Kentico.Xperience.VirtualInbox
+    official: true
+    version: 1.3.0
+    published: '2026-03-19'
+    role: In-app virtual inbox for email-channel development and testing
+    source_code: https://github.com/Kentico/xperience-by-kentico-virtual-inbox
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.ComponentRegistry
+    url: https://www.nuget.org/packages/Kentico.Xperience.ComponentRegistry
+    install: dotnet add package Kentico.Xperience.ComponentRegistry
+    official: true
+    version: 1.0.1
+    published: '2026-03-14'
+    role: Registered-component browser + self-hosted MCP server for AI agents
+    source_code: https://github.com/Kentico/xperience-by-kentico-component-registry
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Shopify
+    url: https://www.nuget.org/packages/Kentico.Xperience.Shopify
+    install: dotnet add package Kentico.Xperience.Shopify
+    official: true
+    version: 6.0.0
+    published: '2026-02-11'
+    source_code: https://github.com/Kentico/xperience-by-kentico-shopify
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.K13Ecommerce
+    url: https://www.nuget.org/packages/Kentico.Xperience.K13Ecommerce
+    install: dotnet add package Kentico.Xperience.K13Ecommerce
+    official: true
+    version: 3.0.0
+    published: '2026-02-11'
+    source_code: https://github.com/Kentico/xperience-by-kentico-k13ecommerce
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.CRM.SalesForce
+    url: https://www.nuget.org/packages/Kentico.Xperience.CRM.SalesForce
+    install: dotnet add package Kentico.Xperience.CRM.SalesForce
+    official: true
+    version: 4.0.0
+    published: '2026-03-09'
+    source_code: https://github.com/Kentico/xperience-by-kentico-crm
+
+  - language: dotnet
+    registry: nuget
+    name: Kentico.Xperience.Zapier
+    url: https://www.nuget.org/packages/Kentico.Xperience.Zapier
+    install: dotnet add package Kentico.Xperience.Zapier
+    official: true
+    version: 3.0.0
+    published: '2026-01-15'
+    source_code: https://github.com/Kentico/xperience-by-kentico-zapier
+
+  # ── First-party JavaScript (@kentico npm scope) ────────────────────────────
+  - language: javascript
+    registry: npm
+    name: "@kentico/management-api-mcp"
+    url: https://www.npmjs.com/package/@kentico/management-api-mcp
+    install: npx -y @kentico/management-api-mcp@latest
+    official: true
+    version: 31.7.3-preview
+    published: '2026-08-13'
+    prerelease: true
+    role: >-
+      Management MCP server (stdio). Reads the management API schema from a
+      locally running Xperience application and exposes its CRUD operations as
+      MCP tools. See mcp/kentico-mcp.yml.
+    engines: node >= 22.0.0
+
+  - language: javascript
+    registry: npm
+    name: "@kentico/xperience-admin-components"
+    url: https://www.npmjs.com/package/@kentico/xperience-admin-components
+    install: npm install @kentico/xperience-admin-components
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: React component library powering the Xperience administration UI
+    dist_tags: [latest 31.7.3, latest-30 30.6.4, latest-26 26.6.7]
+
+  - language: javascript
+    registry: npm
+    name: "@kentico/xperience-admin-base"
+    url: https://www.npmjs.com/package/@kentico/xperience-admin-base
+    install: npm install @kentico/xperience-admin-base
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: Base library for custom administration client modules
+
+  - language: javascript
+    registry: npm
+    name: "@kentico/xperience-webpack-config"
+    url: https://www.npmjs.com/package/@kentico/xperience-webpack-config
+    install: npm install @kentico/xperience-webpack-config
+    official: true
+    version: 31.7.3
+    published: '2026-08-13'
+    role: webpack configuration for in-browser admin modules loaded via SystemJS
+
+currency:
+  observed: '2026-08-13'
+  platform_line: 31.7.3
+  finding: >-
+    The platform NuGet and npm packages published the same day this artifact was
+    written, matching the documented weekly-hotfix cadence. No abandonment
+    signal: every first-party integration package listed has shipped a release
+    in 2026.
