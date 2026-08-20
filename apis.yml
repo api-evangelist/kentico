@@ -33,6 +33,17 @@ tags:
 - REST
 - .NET
 - Headless
+- E-Commerce
+- Digital Marketing
+- Personalization
+tags_raw:
+- CMS
+- Content Management
+- Digital Experience Platform
+- GraphQL
+- REST
+- .NET
+- Headless
 - E-commerce
 - Digital Marketing
 - Personalization
@@ -97,6 +108,12 @@ apis:
   - .NET
   - SDK
   - Content
+  - File
+  - Storage
+  tags_raw:
+  - .NET
+  - SDK
+  - Content
   - Files
   - Storage
   properties:
@@ -120,6 +137,12 @@ apis:
   humanURL: https://docs.kentico.com/documentation/developers-and-admins/deployment/deploy-to-the-saas-environment
   baseURL: https://xperience-portal.com/api
   tags:
+  - Deployment
+  - CI/CD
+  - Software-as-a-Service
+  - DevOps
+  - REST
+  tags_raw:
   - Deployment
   - CI/CD
   - SaaS
