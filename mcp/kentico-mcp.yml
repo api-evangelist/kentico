@@ -320,3 +320,11 @@ related:
   content_modeling_mcp: https://docs.kentico.com/guides/architecture/content-modeling/content-modeling-mcp
   kenticopilot: https://docs.kentico.com/guides/development/kenticopilot
   skills: skills/_index.yml
+tools_count: 2
+tools:
+- name: kentico_docs_fetch
+  description: ''
+- name: kentico_docs_search
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
+authorship: provider
