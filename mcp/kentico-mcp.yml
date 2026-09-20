@@ -323,8 +323,8 @@ related:
 tools_count: 2
 tools:
 - name: kentico_docs_fetch
-  description: ''
+  description: Fetches and converts Xperience by Kentico (XbK) documentation page from https://docs.kentico.com into markdown format. Only URLs from docs.kentico.com are supported.
 - name: kentico_docs_search
-  description: ''
+  description: Performs hybrid search (vector search, semantic search and text based search) against Xperience by Kentico (XbK) official documentation.
 tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
