@@ -297,3 +297,13 @@ x-enrichment:
   status: enriched
   artifacts_added: 42
   pass: local-v1
+x-correction-request:
+  requested: '2026-09-28'
+  source:
+  - https://github.com/api-evangelist/kentico/pull/1
+  request: 'Verified 2026-09-28 by a fresh initialize + tools/list against https://docs.kentico.com/mcp
+    (serverInfo Kentico.Aira.Service 1.0.0, first-party, anonymous): both tools (kentico_docs_fetch, kentico_docs_search)
+    carry descriptions, but mcp/kentico-mcp.yml records description '''' for both even though mcp/kentico-docs-mcp-tools.json
+    captured them. Re-probe tools/list and carry the live descriptions into the manifest verbatim; the
+    PR''s two strings match live exactly, but take them from the probe, not the PR. The PR is a LintLang
+    (Hermes Labs) automated contribution with no affiliation to Kentico.'
