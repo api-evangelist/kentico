@@ -1,4 +1,6 @@
 generated: '2026-08-13'
+description: "Kentico provides sample projects and SaaS environments for testing, but no hosted API sandbox."
+docs: "https://docs.kentico.com/documentation/developers-and-admins/installation"
 method: searched
 source: https://docs.kentico.com/documentation/developers-and-admins/installation
 note: >-

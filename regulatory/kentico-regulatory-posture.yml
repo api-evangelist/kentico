@@ -1,0 +1,32 @@
+generated: '2026-09-28'
+method: probed
+source: https://www.kentico.com/privacy-policy
+signals:
+  data_subject_request:
+    - evidence:
+        - source: https://www.kentico.com/privacy-policy
+          http_status: 200
+          fetched: /tmp/kentico_privacy.html
+          quote: "You have the right to object any time to the processing of your personal data in accordance with sec. 21 of the GDPR."
+          note: General data subject right to object.
+  subprocessors:
+    - evidence:
+        - source: https://www.kentico.com/privacy-policy
+          http_status: 200
+          fetched: /tmp/kentico_privacy.html
+          quote: "Such data may be transferred to trusted third-party AI service providers acting as data processors."
+          note: Use of third‑party processors for AI chatbot.
+  ai_transparency:
+    - evidence:
+        - source: https://www.kentico.com/privacy-policy
+          http_status: 200
+          fetched: /tmp/kentico_privacy.html
+          quote: "If you use the AI‑powered documentation assistant (“Chatbot”) ... Kentico will process the following information: an anonymized user identifier, the date and time of the question, the source website address, the text of the submitted question, the AI‑generated answer."
+          note: Disclosure of data processed by AI chatbot.
+  data_retention:
+    - evidence:
+        - source: https://www.kentico.com/privacy-policy
+          http_status: 200
+          fetched: /tmp/kentico_privacy.html
+          quote: "For this purpose, the data will be processed for the period necessary to deliver the response, maximally for a period of four years."
+          note: Retention period for query/complaint data.

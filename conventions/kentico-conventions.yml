@@ -11,6 +11,7 @@ authentication:
   detail: authentication/kentico-authentication.yml
 
 idempotency:
+  coverage: none
   supported: false
   note: >-
     Kentico documents no idempotency key, no request-deduplication header and no
