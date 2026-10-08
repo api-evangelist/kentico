@@ -104,3 +104,39 @@ notes:
   - "Free trial available"
   - "KentiCopilot AI developer tools available at no additional cost to all developers"
   - "On-premise, private cloud (Azure/AWS), and SaaS deployment options available"
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Standard
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Advanced
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: SaaS Standard
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: SaaS Advanced
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: AIRA AI Credits
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
