@@ -40,5 +40,5 @@
     builder: unknown (not in the directory record)
     other_apps:
     - kentico-xperience
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
